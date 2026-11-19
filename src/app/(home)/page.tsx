@@ -97,7 +97,7 @@ const navbarGroups = [
 const quickLinks = [
   {
     title: 'Orientasi admin baru',
-    description: 'Tata cara login resmi, wewenang peran, dan pedoman etika perlindungan privasi data.',
+    description: 'Tata cara login resmi ke akun dashboard dan batasan wewenang peran admin.',
     href: '/docs/getting-started',
     icon: Rocket,
   },

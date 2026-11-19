@@ -1,15 +1,15 @@
 ---
-title: Tingkatan Peran & Wewenang
-description: Penjelasan mengenai pembagian peran staf, batasan hak akses operasional, matriks wewenang menu, dan prosedur eskalasi wewenang.
+title: Role dan Aksesnya
+description: Penjelasan mengenai pembagian peran, batasan hak akses operasional
 ---
 
-# Tingkatan Peran & Wewenang
+# Role dan Aksesnya
 
-Dashboard Admin GameForSmart menerapkan prinsip pembagian wewenang berdasarkan peran (*Role-Based Access Control* / RBAC). Sistem ini memastikan setiap staf hanya dapat mengakses fitur dan data yang sesuai dengan tanggung jawab tugasnya masing-masing.
+Admin GameForSmart menerapkan prinsip pembagian wewenang berdasarkan Role (*Role-Based Access Control* / RBAC). Sistem ini memastikan setiap staf hanya dapat mengakses fitur dan data yang sesuai dengan tanggung jawab tugasnya masing-masing.
 
 ---
 
-## 1. Empat Tingkatan Peran Staf
+## 1. Role
 
 Di dalam ekosistem GameForSmart, akun staf terbagi menjadi 4 kategori wewenang utama:
 
@@ -17,9 +17,9 @@ Di dalam ekosistem GameForSmart, akun staf terbagi menjadi 4 kategori wewenang u
 *   **Kedudukan**: Pemegang otoritas tertinggi sistem.
 *   **Tanggung Jawab**:
     *   Mengatur konfigurasi global aplikasi dan mengaktifkan mode pemeliharaan (*Maintenance Mode*).
-    *   Membuat akun staf baru dan menetapkan tingkatan peran masing-masing staf.
+    *   Membuat akun staf baru dan menetapkan tingkatan Role masing-masing staf.
     *   Memulihkan data atau melakukan penghapusan data secara permanen dari Tempat Sampah (*Trash Bin*).
-    *   Mengakses seluruh 10 kelompok menu tanpa batasan.
+    *   Mengakses seluruh menu tanpa batasan.
 
 ### B. Admin Layanan & Operasional (`admin_support`)
 *   **Kedudukan**: Staf inti pemantauan konten kuis, komunitas, dan bantuan pengguna.
@@ -36,32 +36,24 @@ Di dalam ekosistem GameForSmart, akun staf terbagi menjadi 4 kategori wewenang u
     *   Memverifikasi bukti pembayaran pendaftaran turnamen jika terjadi kendala verifikasi otomatis.
     *   Meninjau rekonsiliasi arus kas dan riwayat pengembalian dana (*refund*).
     *   Memantau perkembangan modul paket langganan berbayar.
-
-### D. Resepsionis Turnamen Luring (`receptionist`)
-*   **Kedudukan**: Petugas lapangan yang bertugas di lokasi fisik penyelenggaraan turnamen kuis.
-*   **Tanggung Jawab**:
-    *   Mengoperasikan antarmuka pemindai kamera (*QR Scanner*) di meja registrasi turnamen.
-    *   Memindai tiket kode QR pada ponsel peserta turnamen untuk memvalidasi kehadiran fisik (*check-in*).
-    *   Mencatat kehadiran peserta secara langsung tanpa memiliki akses ke data konfigurasi kuis maupun server.
-
 ---
 
-## 2. Matriks Hak Akses Menu Navigasi
+## 2. Akses Setiap Role
 
-Tabel berikut merangkum wewenang masing-masing peran terhadap 10 kelompok menu navigasi utama:
+Tabel berikut merangkum wewenang masing-masing peran terhadap kelompok menu navigasi utama:
 
-| Kelompok Menu Utama | Superadmin | Admin Support | Admin Billing | Resepsionis Turnamen |
-| :--- | :---: | :---: | :---: | :---: |
-| **Dashboard** | Penuh | Penuh | Ringkasan Billing | Terbatas |
-| **Game** | Penuh | Penuh | Hanya Lihat | - |
-| **Quiz** | Penuh | Penuh | - | - |
-| **Competition** | Penuh | Penuh | Hanya Lihat Biaya | Scanner QR Saja |
-| **Blog** | Penuh | Penuh | - | - |
-| **Support & Laporan** | Penuh | Penuh | - | - |
-| **Billing & Transaksi** | Penuh | Hanya Status | Penuh | - |
-| **Master Data** | Penuh | Hanya Lihat | - | - |
-| **Administrator & User** | Penuh | Moderasi Profil | - | - |
-| **Setting & Trash Bin** | Penuh | - | - | - |
+| Kelompok Menu Utama | Superadmin | Admin Support | Admin Billing |
+| :--- | :---: | :---: | :---: |
+| **Dashboard** | Penuh | Penuh | Ringkasan Billing |
+| **Game** | Penuh | Penuh | Hanya Lihat |
+| **Quiz** | Penuh | Penuh | - |
+| **Competition** | Penuh | Penuh | Hanya Lihat Biaya |
+| **Blog** | Penuh | Penuh | - |
+| **Support & Laporan** | Penuh | Penuh | - |
+| **Billing & Transaksi** | Penuh | Hanya Status | Penuh |
+| **Master Data** | Penuh | Hanya Lihat | - |
+| **Administrator & User** | Penuh | Moderasi Profil | - |
+| **Setting & Trash Bin** | Penuh | - | - |
 
 *Keterangan simbol:*
 *   **Penuh**: Berhak melihat, membuat, mengubah, dan memindahkan ke tempat sampah.
@@ -69,12 +61,3 @@ Tabel berikut merangkum wewenang masing-masing peran terhadap 10 kelompok menu n
 *   **-**: Menu tidak tampil di bilah navigasi staf.
 
 ---
-
-## 3. Prosedur Eskalasi Wewenang
-
-Apabila dalam penugasan tertentu Anda membutuhkan akses ke menu yang berada di luar peran akun Anda (misalnya: Admin Support yang ditugaskan sementara mengurus pendaftaran billing turnamen):
-
-1.  **Ajukan Permohonan Resmi**: Hubungi Superadmin atau atasan operasional Anda dengan menyertakan alasan penugasan dan perkiraan durasi kebutuhan akses.
-2.  **Penyesuaian Peran oleh Superadmin**: Superadmin akan memperbarui peran akun Anda melalui menu **Administrator > Manajemen Pengguna**.
-3.  **Masuk Ulang Akun (*Re-login*)**: Setelah peran diperbarui, Anda wajib melakukan **Logout** dan masuk kembali agar hak akses baru diterapkan pada peramban Anda.
-

@@ -3,8 +3,6 @@
   "pages": [
     "index",
     "cara-login",
-    "navigasi-antarmuka",
-    "peran-akses",
-    "etika-keamanan"
+    "peran-akses"
   ]
 }
