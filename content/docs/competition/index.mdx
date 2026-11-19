@@ -1,0 +1,49 @@
+---
+title: Dashboard Kompetisi
+description: Memantau ringkasan turnamen sekolah aktif, jumlah peserta terdaftar, verifikasi tiket masuk, dan total hadiah kejuaraan.
+---
+
+# Dashboard Kompetisi
+
+Halaman **Dashboard Kompetisi** (`/competition/dashboard`) menyajikan pusat komando pemantauan ajang olimpiade kuis dan turnamen cerdas cermat yang diselenggarakan oleh sekolah, dinas, atau GameForSmart.
+
+---
+
+## 1. Kartu Metrik Turnamen
+
+Di baris atas, tersaji data ringkasan turnamen:
+*   **Turnamen Aktif**: Jumlah kompetisi yang saat ini sedang dalam masa pendaftaran atau sedang melangsungkan babak pertandingan.
+*   **Total Peserta Terdaftar**: Akumulasi siswa atau regu yang telah melengkapi formulir pendaftaran turnamen.
+*   **Tiket Terverifikasi (*Check-in*)**: Jumlah peserta yang telah hadir di lokasi fisik dan dipindai tiket QR-nya oleh meja resepsionis.
+*   **Total Hadiah (*Prize Pool*)**: Akumulasi nilai beasiswa, piala, atau uang pembinaan yang diperebutkan di seluruh turnamen aktif.
+
+---
+
+## 2. Kalender Jadwal Pertandingan
+
+Panel kalender memperlihatkan jadwal pelaksanaan turnamen:
+*   Mendeteksi turnamen yang akan dimulai dalam 24 jam ke depan.
+*   Menghindari benturan jadwal penggunaan server antara turnamen berskala besar.
+
+---
+
+## 3. Navigasi Fitur Kompetisi
+
+<Cards>
+  <Card 
+    title="Kelola Turnamen & Babak" 
+    description="Membuat turnamen baru, mengatur whitelist peserta, dan memajukan babak tanding."
+    href="/docs/competition/manage-competitions"
+  />
+  <Card 
+    title="Kategori Kompetisi" 
+    description="Mengatur tingkatan jenjang turnamen (SD, SMP, SMA, Perguruan Tinggi, Umum)."
+    href="/docs/competition/category"
+  />
+  <Card 
+    title="Meja Resepsionis Scanner QR" 
+    description="Antarmuka kamera pemindai tiket QR untuk mencatat kehadiran fisik peserta di arena."
+    href="/docs/competition/receptionist"
+  />
+</Cards>
+

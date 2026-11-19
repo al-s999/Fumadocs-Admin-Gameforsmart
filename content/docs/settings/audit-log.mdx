@@ -1,0 +1,42 @@
+---
+title: Log Audit
+description: Panduan membaca tabel rekam jejak kepatuhan operasional staf, melacak riwayat perubahan data, dan investigasi audit forensik.
+---
+
+# Log Audit
+
+Halaman **Log Audit** (`/audit-log`) adalah buku catatan digital kepatuhan (*Compliance Audit Trail*) yang merekam seluruh aksi krusial yang dijalankan oleh para staf administrator di sistem GameForSmart.
+
+---
+
+## 1. Fungsi & Kegunaan Log Audit
+
+Log Audit berfungsi sebagai:
+1.  **Akuntabilitas Transparan**: Memberikan bukti autentik siapa yang melakukan suatu perubahan data (misal: menyetujui kuis, memblokir akun, membatalkan invoice).
+2.  **Investigasi Kesalahan Operasional**: Membantu melacak waktu dan alasan saat suatu data penting tidak sengaja terhapus atau berubah.
+3.  **Kepatuhan Hukum & Privasi**: Memenuhi standar audit perlindungan data pribadi dan pencegahan penyalahgunaan wewenang internal.
+
+---
+
+## 2. Struktur Kolom Rekaman Audit
+
+Tabel audit log menyajikan rincian data dengan parameter presisi:
+
+| Kolom | Informasi yang Dicatat | Makna Investigasi |
+| :--- | :--- | :--- |
+| **Waktu (*Timestamp*)** | Tanggal, jam, menit, dan detik presisi | Mengetahui urutan kronologis kejadian. |
+| **Staf Pelaksana** | Nama admin dan alamat email dinas | Mengidentifikasi akun yang bertindak. |
+| **Jenis Aksi (*Action*)** | `CREATE`, `UPDATE`, `DELETE`, `APPROVE`, `REJECT` | Kategori tindakan operasional. |
+| **Modul Terkait** | `Quiz`, `Competition`, `User`, `Billing`, `System` | Area sistem yang terdampak. |
+| **Rincian Perubahan** | Catatan nilai sebelum dan sesudah data diubah | Mengetahui detail perubahan secara spesifik. |
+| **Alamat IP & Perangkat** | Alamat IP jaringan dan jenis peramban staf | Memastikan aksi dilakukan dari lokasi kerja resmi. |
+
+---
+
+## 3. Menyaring & Mencari Data Audit
+
+Gunakan instrumen pencarian untuk audit investigasi:
+*   **Filter Berdasarkan Staf**: Melihat seluruh tindakan yang dilakukan oleh staf tertentu dalam satu rentang giliran kerja (*shift*).
+*   **Filter Berdasarkan Jenis Aksi**: Saring khusus tindakan penghapusan (`DELETE`) atau penolakan kuis (`REJECT`).
+*   **Ekspor Rekam Jejak**: Superadmin dapat mengunduh rekaman audit dalam format CSV untuk keperluan pelaporan resmi kepada pimpinan instansi.
+

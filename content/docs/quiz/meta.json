@@ -1,0 +1,10 @@
+{
+  "title": "Quiz",
+  "pages": [
+    "index",
+    "quizzes",
+    "quiz-approval",
+    "rejection-templates"
+  ]
+}
+

@@ -1,0 +1,11 @@
+{
+  "title": "Game",
+  "pages": [
+    "index",
+    "games",
+    "manage-games",
+    "game-sessions",
+    "manage-reviews"
+  ]
+}
+

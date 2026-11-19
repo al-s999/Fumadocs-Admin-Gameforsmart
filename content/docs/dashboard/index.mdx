@@ -1,46 +1,76 @@
 ---
-title: Dashboard & Analitik Utama
-description: Panduan halaman Analitik Ringkasan, Master Analytics, dan Audit Trail Log Tindakan Admin.
+title: Halaman Dashboard Utama
+description: Panduan memahami metrik ringkasan platform, grafik pertumbuhan pengguna, statistik performa game, dan umpan aktivitas terkini.
 ---
 
-# Dashboard & Analitik Utama
+# Halaman Dashboard Utama
 
-Kategori ini mencakup halaman monitoring performa global, ringkasan KPI, dan log kepatuhan (audit trail) untuk memantau aktivitas sistem.
-
----
-
-## 1. Global Dashboard (`/dashboard`)
-Halaman pertama yang menyambut admin setelah login, berisi visualisasi kesehatan ekosistem secara umum.
-
-*   **KPI Grid (Stats Grid)**:
-    *   **Total Users**: Jumlah seluruh akun terdaftar di sistem.
-    *   **Active Sessions**: Jumlah sesi room game yang saat ini sedang dimainkan oleh pemain.
-    *   **Completed Sessions**: Akumulasi sesi game yang telah selesai dimainkan dari awal sistem berdiri.
-    *   **Pending Reviews**: Jumlah kuis buatan kreator/pemain yang menunggu persetujuan tim kurator.
-*   **Bagan Tren (Charts Section)**:
-    *   **User Growth Chart**: Grafik garis/batang dinamis berbasis Recharts yang menampilkan statistik pertumbuhan registrasi user baru per hari, minggu, atau bulan.
-*   **Quick Access Cards**: Pintasan langsung menuju modul-modul penting seperti Pusat Tiket Support, Manajemen User, Master Data Game, dan Pengaturan Sistem.
-*   **Recent Activity Feed**: Tabel ringkas yang memuat aksi-aksi terbaru yang dilakukan oleh admin di seluruh sistem.
+Halaman **Dashboard** (`/dashboard`) adalah beranda operasional yang pertama kali Anda lihat setelah berhasil masuk ke portal. Halaman ini dirancang untuk memberikan gambaran menyeluruh mengenai kesehatan sistem dan aktivitas pemain GameForSmart secara waktu nyata (*real-time*).
 
 ---
 
-## 2. Master Analytics Dashboard (`/master/dashboard` / `/master`)
-Halaman khusus untuk melihat performa game individual yang ada di ekosistem GameForSmart (misalnya performa *NitroQuiz* dibandingkan dengan *CrazyRace*).
+## 1. Empat Kartu Ringkasan Utama (KPI Grid)
 
-*   **Sesi per Aplikasi**: Menampilkan statistik jumlah room yang dibuat dan berhasil diselesaikan untuk masing-masing game.
-*   **Metrik Pemain Unik**: Menghitung host unik (*unique hosts*) dan total pemain (*total players*) yang memainkan game tersebut untuk mengukur keterlibatan pengguna (*engagement*).
-*   **Rentang Waktu**: Pelacakan tanggal pembuatan sesi game pertama kali (*first session*) hingga sesi aktif terakhir (*last session*).
+Di bagian teratas dashboard, terdapat empat kartu indikator kinerja utama (*Key Performance Indicators*):
+
+<Cards>
+  <Card 
+    title="Total Pengguna" 
+    description="Akumulasi seluruh akun pemain, guru, dan staf yang terdaftar di platform. Memperlihatkan persentase kenaikan dibanding bulan sebelumnya."
+  />
+  <Card 
+    title="Sesi Game Aktif" 
+    description="Jumlah room permainan multiplayer yang saat ini sedang dibuka atau sedang berlangsung di seluruh penjuru ekosistem game."
+  />
+  <Card 
+    title="Sesi Selesai" 
+    description="Total sesi room kuis dan permainan yang telah berhasil dituntaskan hingga babak pengumuman skor pemenang."
+  />
+  <Card 
+    title="Kuis Menunggu Review" 
+    description="Jumlah kuis kiriman komunitas/guru yang menunggu peninjauan staf kurasi sebelum layak ditayangkan ke direktori publik."
+  />
+</Cards>
+
+<Callout type="info">
+  Indikator angka pada kartu ringkasan diperbarui secara otomatis setiap kali ada aktivitas baru tanpa Anda perlu menyegarkan (*refresh*) halaman peramban secara manual.
+</Callout>
 
 ---
 
-## 3. Log Audit Admin (`/audit-log` / `/audit-log-paginated`)
-Halaman kepatuhan (*compliance log*) untuk mencatat semua tindakan administratif yang dilakukan oleh admin untuk mencegah penyalahgunaan hak akses.
+## 2. Grafik Tren Pertumbuhan Pengguna
 
-*   **Audit Log Table**:
-    *   **Siapa**: Menampilkan nama lengkap, ID, email, dan alamat IP (`ip_address`) admin yang melakukan aksi.
-    *   **Aksi**: Menampilkan tipe aksi (seperti `APPROVE_QUIZ`, `BLOCK_USER`, `START_COMPETITION_ROUND`).
-    *   **Objek**: Menampilkan entitas yang dimodifikasi (`entity_type` & `entity_label`).
-    *   **Detail Nilai (JSONB Detail)**: Modal interaktif untuk membandingkan keadaan objek sebelum (`old_value`) dan sesudah (`new_value`) aksi dilakukan.
-*   **Optimasi Paginasi Server-Side**:
-    *   Menggunakan `.range()` Supabase dan penghitungan estimasi total data (`count: "estimated"`) agar halaman tetap termuat dalam waktu `<200ms` meskipun jumlah log mencapai jutaan baris.
-    *   **Full-Text Search (TSVECTOR)**: Menggunakan pencarian berbasis teks PostgreSQL untuk mencari log berdasarkan email admin atau judul entitas secara instan.
+Di bawah kartu ringkasan, tersaji grafik garis interaktif yang memvisualisasikan dinamika pendaftaran pengguna baru:
+
+*   **Pilihan Rentang Waktu**: Anda dapat memilih filter waktu di sudut kanan atas grafik:
+    *   **7 Hari Terakhir**: Untuk memantau tren mingguan atau dampak promosi acara sekolah.
+    *   **30 Hari Terakhir**: Untuk melihat pertumbuhan pendaftaran bulanan.
+    *   **1 Tahun**: Untuk evaluasi adopsi platform jangka panjang.
+*   **Sorotan Titik Data (*Tooltip*)**: Arahkan kursor tetikus ke titik grafik mana pun untuk membaca angka pasti pendaftaran pada tanggal tersebut.
+
+---
+
+## 3. Tabel Ringkasan Popularitas Game
+
+Bagian ini menyajikan urutan game resmi berdasarkan intensitas pemakaian oleh pengguna:
+
+| Kolom Tabel | Keterangan Data | Tindakan yang Disarankan |
+| :--- | :--- | :--- |
+| **Nama Game** | Judul game resmi (*SpaceQuiz, MemoryQuiz, dll.*) | Klik nama game untuk menuju halaman katalog game. |
+| **Sesi Berjalan** | Jumlah room yang sedang aktif saat ini | Waspadai jika ada lonjakan tajam pada jam sekolah. |
+| **Total Pemain** | Akumulasi pemain yang tergabung dalam room | Menilai antusiasme pemain terhadap mekanik game terkait. |
+| **Status Game** | Indikator `Online` (Hijau) atau `Maintenance` (Kuning) | Pastikan game utama selalu berstatus `Online`. |
+
+---
+
+## 4. Umpan Aktivitas Terkini (*Recent Activity Feed*)
+
+Di sisi kanan dashboard, terdapat panel log yang menampilkan 10 tindakan operasional terbaru:
+*   Melihat staf admin mana yang baru saja menyetujui kuis.
+*   Melihat laporan pelanggaran baru yang masuk dari pemain.
+*   Melihat status pendaftaran turnamen yang baru lunas.
+
+<Callout type="tip">
+  Jika Anda bertugas sebagai admin pembuka giliran kerja (*shift*), selalu luangkan waktu 2 menit untuk memeriksa umpan aktivitas terkini agar mengetahui apa saja yang telah diselesaikan oleh rekan kerja pada giliran sebelumnya.
+</Callout>
+

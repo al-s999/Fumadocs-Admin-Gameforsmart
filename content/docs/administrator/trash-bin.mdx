@@ -1,0 +1,68 @@
+---
+title: Sampah
+description: Panduan memulihkan kuis, turnamen, atau artikel yang tidak sengaja terhapus, serta wewenang khusus Superadmin dalam penghapusan permanen.
+---
+
+# Sampah
+
+Halaman * Sampah** (`/trash-bin`) adalah fitur keselamatan (*safety net*) yang menampung seluruh entitas data yang telah dihapus oleh staf admin.
+
+---
+
+## 1. Mekanisme Penghapusan Bertahap (*Soft Delete*)
+
+Sistem GameForSmart menerapkan prinsip perlindungan data tidak langsung hilang (*Soft Delete*):
+*   Ketika seorang staf mengklik tombol hapus pada kuis, artikel blog, atau grup komunitas, data tersebut **tidak langsung dimusnahkan** dari database.
+*   Data hanya diberi penanda terhapus (*timestamp deleted_at*) dan dipindahkan ke halaman * Sampah**.
+*   Hal ini memberi kesempatan pemulihan data jika terjadi salah klik atau kekeliruan staf operasional.
+
+---
+
+## 2. Kategori Tab di Sampah
+
+Halaman `/trash-bin` dibagi menjadi beberapa tab entitas data:
+*   **Kuis (*Quizzes*)**: Paket kuis yang dihapus oleh guru atau staf.
+*   **Pengguna (*Users*)**: Profil akun yang dinonaktifkan.
+*   **Grup (*Groups*)**: Grup lobi yang dibubarkan.
+*   **Artikel Blog (*Blog Posts*)**: Draf atau artikel yang ditarik.
+*   **Turnamen (*Competitions*)**: Acara perlombaan yang dibatalkan.
+
+---
+
+## 3. Langkah Memulihkan Data (*Restore*)
+
+Jika sebuah data kuis atau turnamen perlu diaktifkan kembali:
+
+<Steps>
+  <Step>
+    ### Temukan Data di Sampah
+    Buka tab kategori yang sesuai di `/trash-bin`, lalu cari berdasarkan judul atau ID data.
+  </Step>
+
+  <Step>
+    ### Tekan Tombol Pulihkan (*Restore*)
+    Klik tombol hijau **Pulihkan Data (Restore)** di baris data terkait.
+  </Step>
+
+  <Step>
+    ### Konfirmasi Pemulihan
+    Jendela konfirmasi akan muncul. Tekan tombol **Ya, Pulihkan Sekarang**.
+  </Step>
+
+  <Step>
+    ### Selesai
+    Data seketika keluar dari Tempat Sampah dan kembali aktif pada menu operasional asalnya dengan seluruh konfigurasi yang utuh seperti semula.
+  </Step>
+</Steps>
+
+---
+
+## 4. Penghapusan Permanen (*Hard Delete*)
+
+<Callout type="error">
+  Tindakan **Hapus Permanen (Destroy)** akan memusnahkan data seutuhnya dari server secara permanen dan **tidak dapat dibatalkan atau dipulihkan kembali oleh siapa pun**.
+</Callout>
+
+*   Tombol hapus permanen hanya dapat diakses oleh akun bertingkat peran **Superadmin**.
+*   Data yang berada di tempat sampah selama lebih dari 30 hari tanpa dipulihkan akan dibersihkan secara otomatis oleh sistem pemeliharaan berkala.
+

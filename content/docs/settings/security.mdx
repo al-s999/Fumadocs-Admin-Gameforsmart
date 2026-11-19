@@ -1,0 +1,54 @@
+---
+title: Keamanan Akun
+description: Panduan memperbarui kata sandi berkala, mengaktifkan autentikasi dua faktor (2FA/OTP), dan mengelola sesi aktif.
+---
+
+# Keamanan Akun
+
+Halaman **Keamanan** (`/settings/security`) menyediakan instrumen perlindungan untuk memastikan akun staf administrator Anda selalu dalam kondisi terlindungi dari ancaman penyusupan siber.
+
+---
+
+## 1. Prosedur Mengganti Kata Sandi Berkala
+
+Staf admin disarankan memperbarui kata sandi akun minimal setiap 90 hari sekali:
+
+<Steps>
+  <Step>
+    ### Buka Menu Keamanan
+    Arahkan ke `/settings/security`.
+  </Step>
+
+  <Step>
+    ### Masukkan Kata Sandi Lama
+    Ketikkan kata sandi Anda yang sedang aktif pada kolom **Kata Sandi Saat Ini** guna memvalidasi bahwa Anda adalah pemilik sah akun tersebut.
+  </Step>
+
+  <Step>
+    ### Masukkan Kata Sandi Baru
+    Ketikkan kata sandi baru yang memenuhi kriteria keamanan:
+    *   Minimal terdiri dari 8 karakter (disarankan 12 karakter atau lebih).
+    *   Memuat kombinasi huruf besar, huruf kecil, angka, dan simbol khusus (seperti `@, #, $, !`).
+  </Step>
+
+  <Step>
+    ### Konfirmasi Kata Sandi Baru
+    Ketikkan ulang kata sandi baru pada kolom konfirmasi untuk memastikan tidak ada salah ketik.
+  </Step>
+
+  <Step>
+    ### Simpan Kata Sandi
+    Klik tombol **Perbarui Kata Sandi**. Sesi di komputer lain akan otomatis keluar dan meminta login ulang dengan sandi baru.
+  </Step>
+</Steps>
+
+---
+
+## 2. Autentikasi Dua Faktor (*Two-Factor Authentication* / 2FA)
+
+Untuk keamanan tingkat maksimal:
+*   Aktifkan sakelar **Autentikasi Dua Faktor (2FA)**.
+*   Pindai kode QR yang muncul pada layar menggunakan aplikasi autentikator di ponsel Anda (*Google Authenticator* atau *Microsoft Authenticator*).
+*   Ketikkan 6 digit kode yang tampil di ponsel untuk memvalidasi integrasi.
+*   Setelah aktif, setiap kali Anda login ke portal admin, sistem akan meminta kombinasi kata sandi serta 6 digit kode OTP dari ponsel Anda.
+

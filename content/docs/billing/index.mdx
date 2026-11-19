@@ -1,0 +1,54 @@
+---
+title: Dashboard Billing
+description: Memantau ringkasan pendapatan tiket pendaftaran turnamen, grafik transaksi harian, dan rasio penyelesaian pembayaran via Xendit.
+---
+
+# Dashboard Billing
+
+Halaman **Dashboard Billing** (`/billing/dashboard`) adalah pusat monitoring arus kas masuk dari biaya pendaftaran turnamen dan transaksi berbayar di platform GameForSmart.
+
+---
+
+## 1. Kartu Ringkasan Finansial
+
+Di baris teratas tersaji 4 kartu metrik keuangan:
+*   **Total Pendapatan Bulan Ini**: Akumulasi dana masuk dari transaksi tiket turnamen yang telah terkonfirmasi lunas.
+*   **Transaksi Berhasil (*Paid*)**: Jumlah transaksi yang berhasil diverifikasi pembayarannya oleh gerbang pembayaran Xendit.
+*   **Menunggu Pembayaran (*Pending*)**: Jumlah transaksi yang invoice-nya telah terbit namun belum ditransfer oleh peserta.
+*   **Kedaluwarsa (*Expired*)**: Tagihan yang batas waktu pembayarannya terlewati sehingga hangus secara otomatis.
+
+---
+
+## 2. Grafik Tren Penerimaan Kas
+
+Grafik transaksi memperlihatkan volume transaksi sukses harian:
+*   Melihat lonjakan transaksi saat pendaftaran turnamen besar sekolah dibuka.
+*   Membantu tim keuangan memproyeksikan arus kas dan menyiapkan anggaran hadiah turnamen.
+
+---
+
+## 3. Navigasi Fitur Billing
+
+<Cards>
+  <Card 
+    title="Transaksi Invoice Xendit" 
+    description="Memeriksa detail invoice pembayaran, status transfer, dan sinkronisasi status."
+    href="/docs/billing/transactions"
+  />
+  <Card 
+    title="Metode Pembayaran" 
+    description="Melihat saluran pembayaran aktif: Virtual Account Bank, E-Wallet, dan QRIS."
+    href="/docs/billing/payment-methods"
+  />
+  <Card 
+    title="Rekonsiliasi Mutasi" 
+    description="Pencocokan arus penerimaan bank dengan catatan transaksi sistem GameForSmart."
+    href="/docs/billing/reconciliation"
+  />
+  <Card 
+    title="Paket Langganan (WIP)" 
+    description="Informasi mengenai modul langganan berkala yang saat ini sedang dalam pengembangan."
+    href="/docs/billing/subscriptions"
+  />
+</Cards>
+

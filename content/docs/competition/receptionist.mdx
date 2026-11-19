@@ -1,0 +1,51 @@
+---
+title: Resepsionis
+description: Panduan operasional bagi staf resepsionis lapangan kompetisi dalam memindai tiket kode QR peserta dan memvalidasi presensi fisik di arena tanding.
+---
+
+# Resepsionis
+
+Halaman **Resepsionis** (`/receptionist`) dirancang secara khusus untuk staf lapangan yang bertugas di registrasi kompetisi tatap muka (*offline event*). Halaman ini mengubah komputer atau gawai ber-kamera menjadi alat pemindai kode QR berkecepatan tinggi.
+
+---
+
+## 1. Persiapan Perangkat di Registrasi
+
+Sebelum gerbang registrasi turnamen dibuka, pastikan:
+1.  **Izin Kamera (*Camera Permission*)**: Ketika pertama kali membuka halaman `/receptionist`, peramban akan meminta izin akses kamera. Klik tombol **Izinkan (Allow)**.
+2.  **Pilih Kamera yang Tepat**: Jika laptop Anda terhubung dengan kamera pemindai eksternal (USB Barcode Scanner/Webcam tambahan), pilih perangkat kamera tersebut dari menu drop-down kamera.
+3.  **Pencahayaan Registrasi**: Pastikan pencahayaan di cukup agar kamera dapat menangkap gambar kode QR pada layar ponsel peserta dengan cepat.
+
+---
+
+## 2. Alur Pemindaian Tiket Peserta (*Check-in Flow*)
+
+<Steps>
+  <Step>
+    ### Pilih Turnamen yang Berlangsung
+    Pada menu atas resepsionis, pilih nama kompetisi yang sedang diadakan hari ini.
+  </Step>
+
+  <Step>
+    ### Arahkan Kode QR Peserta ke Kamera
+    Minta peserta membuka tiket elektronik (*E-Ticket*) dari aplikasi GameForSmart pada ponsel mereka, lalu arahkan layar ponsel ke depan lensa kamera.
+  </Step>
+
+  <Step>
+    ### Pembacaan Otomatis oleh Sistem
+    Sistem akan berbunyi bip (*beep*) dan seketika memvalidasi kode tiket:
+    *   **Layar Berwarna Hijau (BERHASIL)**: Tiket valid, data peserta (nama, asal sekolah, dan nomor regu) muncul di layar, dan status kehadiran otomatis tercatat sebagai `HADIR (CHECKED-IN)`.
+    *   **Layar Berwarna Kuning (SUDAH PERNAH DIGUNAKAN)**: Menandakan tiket tersebut sudah pernah dipindai sebelumnya. Waspadai indikasi pemalsuan atau duplikasi tiket masuk.
+    *   **Layar Berwarna Merah (TIDAK DITEMUKAN)**: Kode QR bukan tiket turnamen ini atau status pembayaran peserta belum lunas.
+  </Step>
+
+  <Step>
+    ### Berikan Kartu Peserta Fisik
+    Setelah layar menampilkan status hijau, berikan kartu identitas peserta (*nametag*) atau suvenir perlombaan dan persilakan peserta menuju ruang tanding.
+  </Step>
+</Steps>
+
+<Callout type="tip">
+  **Opsi Pencarian Manual**: Jika kamera ponsel peserta retak atau baterainya habis, staf resepsionis dapat mengetikkan nomor tiket atau nama peserta pada kolom **Cari Peserta Manual** untuk melakukan *check-in* manual dengan persetujuan koordinator lapangan.
+</Callout>
+

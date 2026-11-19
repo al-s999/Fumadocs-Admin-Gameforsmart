@@ -1,0 +1,50 @@
+---
+title: Data Wilayah
+description: Panduan mengelola hierarki data wilayah geografis, menambah entitas provinsi/kota baru, dan menjaga standarisasi alamat sekolah.
+---
+
+# Data Wilayah
+
+Halaman **Master Wilayah** (`/address`) mengelola hierarki 3 tingkat pembagian administratif wilayah yang digunakan oleh pengguna saat melengkapi profil dan mendaftarkan asal sekolah.
+
+---
+
+## 1. Struktur Tiga Tingkat Wilayah
+
+```
+Negara (Country) ───> Provinsi / Wilayah (State/Province) ───> Kota / Kabupaten (City)
+Contoh: Indonesia ───> Jawa Barat                         ───> Kota Bandung
+```
+
+Ketika seorang peserta mendaftar pada aplikasi:
+1.  Pilihan negara otomatis mengerucutkan daftar provinsi yang tersedia.
+2.  Pilihan provinsi mengerucutkan pilihan kota/kabupaten yang relevan.
+
+---
+
+## 2. Menambah Entitas Wilayah Baru
+
+Jika terdapat pemekaran wilayah administratif baru atau daerah peserta turnamen yang belum terdaftar:
+
+<Tabs items={['Menambah Provinsi', 'Menambah Kota / Kabupaten']}>
+  <Tab value="Menambah Provinsi">
+    1. Pilih tab **Provinsi (State/Province)** di `/address`.
+    2. Klik tombol **+ Tambah Provinsi**.
+    3. Pilih **Negara Induk** (contoh: *Indonesia*).
+    4. Masukkan **Nama Provinsi** dan kode ISO wilayah resmi jika ada.
+    5. Klik **Simpan**.
+  </Tab>
+
+  <Tab value="Menambah Kota / Kabupaten">
+    1. Pilih tab **Kota (City)** di `/address`.
+    2. Klik tombol **+ Tambah Kota**.
+    3. Pilih **Provinsi Induk** tempat kota tersebut berada.
+    4. Masukkan **Nama Kota / Kabupaten** (contoh: *Kabupaten Banyumas*).
+    5. Klik **Simpan**. Nama kota akan seketika muncul pada opsi drop-down formulir pendaftaran pengguna.
+  </Tab>
+</Tabs>
+
+<Callout type="warn">
+  Jangan menghapus entitas nama kota yang telah dipilih oleh banyak pengguna terdaftar, karena hal tersebut dapat merusak integritas profil akun yang sudah ada. Gunakan opsi nonaktifkan jika daerah tersebut tidak lagi digunakan.
+</Callout>
+

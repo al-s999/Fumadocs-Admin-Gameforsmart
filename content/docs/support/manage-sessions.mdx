@@ -1,0 +1,35 @@
+---
+title: Kelola Sesi Room
+description: Prosedur pemantauan ruang obrolan, intervensi pembubaran lobi room yang ditinggalkan host, dan pembersihan koneksi zombie.
+---
+
+# Kelola Sesi Room
+
+Halaman **Kelola Sesi** (`/manage-sessions`) adalah instrumen pemeliharaan operasional untuk membersihkan lobi room game dan sesi ruang obrolan yang terbengkalai.
+
+---
+
+## 1. Apa Itu Sesi Terlantar (*Abandoned Session*)?
+
+Terkadang, seorang host membuka room game di kelas, namun peramban laptop host tertutup tiba-tiba (mati lampu, koneksi internet terputus, atau host lupa mengklik tombol tutup sesi). Hal ini menyebabkan:
+*   Para siswa tetap tertahan (*stuck*) di dalam lobi permainan tanpa host yang dapat menekan tombol mulai.
+*   Alokasi sumber daya server tetap terbuka menampung koneksi yang sudah tidak aktif (*zombie session*).
+
+---
+
+## 2. Indikator Sesi Terlantar
+
+Pada tabel sesi, sistem akan memberi tanda peringatan kuning pada baris sesi jika:
+*   Tidak ada pertukaran data (*heartbeat*) dari host selama lebih dari 15 menit.
+*   Status sesi masih berstatus `WAITING`, namun jam pembuatan sesi sudah lebih dari 2 jam yang lalu.
+
+---
+
+## 3. Langkah Pembubaran Sesi Ruangan
+
+1.  Buka `/manage-sessions`.
+2.  Filter tabel dengan opsi status: **Sesi Terbengkalai (Idle > 15 Menit)**.
+3.  Periksa apakah jumlah pemain di dalam room masih ada.
+4.  Klik tombol **Bubarkan Sesi (Terminate Session)**.
+5.  Sistem akan mengirimkan sinyal penutupan ke seluruh pemain yang masih terhubung, memunculkan notifikasi *"Sesi telah ditutup oleh Administrator karena host tidak aktif"*, dan mengembalikan pemain ke menu utama permainan dengan aman.
+

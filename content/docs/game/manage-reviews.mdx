@@ -1,0 +1,39 @@
+---
+title: Ulasan Games
+description: Panduan meninjau ulasan bintang, masukan kritik saran pemain, dan moderasi testimoni publik.
+---
+
+# Ulasan Games
+
+Halaman **Ulasan Games** (`/manage-reviews`) menampung seluruh umpan balik (*feedback*), nilai bintang (*star ratings*), dan ulasan teks yang dikirimkan oleh siswa dan pemain setelah menyelesaikan sesi game.
+
+---
+
+## 1. Memahami Metrik Kepuasan Pemain
+
+Di bagian atas halaman, tersaji kartu metrik kepuasan:
+*   **Rata-rata Skor Bintang**: Skor keseluruhan platform dalam skala 1 hingga 5 bintang (contoh: `4.8 / 5.0`).
+*   **Total Ulasan Diterima**: Akumulasi ulasan yang telah dikirimkan pengguna.
+*   **Rasio Sentimen Positif**: Persentase pemain yang memberikan nilai 4 atau 5 bintang.
+
+---
+
+## 2. Struktur Data Tabel Ulasan
+
+Setiap baris ulasan memuat parameter berikut:
+*   **Nama Pemain & Avatar**: Pengguna yang menulis ulasan.
+*   **Game Terkait**: Judul game yang dinilai.
+*   **Peringkat Bintang**: Simbol bintang emas (1 hingga 5).
+*   **Pesan Komentar**: Teks ulasan yang memuat masukan, pujian, atau keluhan kendala teknis.
+*   **Tanggal Pengiriman**: Tanggal dan jam ulasan dikirimkan.
+*   **Status Moderasi**: `Ditampilkan` (Terbit di landing page) atau `Disembunyikan` (Diarsipkan).
+
+---
+
+## 3. Tindakan Moderasi Ulasan
+
+Sebagai staf admin, Anda berwenang memoderasi ulasan yang tidak pantas:
+
+*   **Menyembunyikan Ulasan Kasar**: Jika ulasan memuat kata-kata kasar, pelecehan, atau konten spam, klik menu titik tiga di baris ulasan lalu pilih **Sembunyikan dari Publik**. Ulasan tidak akan dihapus dari database (agar tetap tercatat sebagai bukti), namun tidak akan tampil di halaman utama.
+*   **Meneruskan Kendala Teknis ke Tim Pengembang**: Jika pemain melaporkan bug spesifik (misalnya: *"Di level 3 MemoryQuiz kartu tidak bisa dibalik"*), salin nomor ID ulasan dan teruskan ke saluran pelaporan bug tim developer.
+

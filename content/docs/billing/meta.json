@@ -1,0 +1,11 @@
+{
+  "title": "Billing",
+  "pages": [
+    "index",
+    "transactions",
+    "payment-methods",
+    "reconciliation",
+    "subscriptions"
+  ]
+}
+

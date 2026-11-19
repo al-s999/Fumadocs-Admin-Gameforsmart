@@ -1,0 +1,61 @@
+---
+title: Pengaturan Sistem
+description: Panduan sakelar kendali mode pemeliharaan global (Maintenance Mode) saat jadwal perawatan server berkala.
+---
+
+# Pengaturan Sistem
+
+Halaman **Pengaturan Sistem** (`/settings`) adalah pusat kendali tingkat tinggi untuk mengatur ketersediaan layanan GameForSmart secara global.
+
+---
+
+## 1. Sakelar Mode Pemeliharaan Global (*Global Maintenance Mode*)
+
+Di bagian utama halaman pengaturan, terdapat sakelar darurat **Maintenance Mode**:
+
+<Callout type="warn">
+  Mengaktifkan mode pemeliharaan global akan **menutup akses seluruh aplikasi pengguna (*client app*)**. Pengguna yang membuka aplikasi akan diarahkan ke layar pengumuman pemeliharaan sistem. Portal Admin tetap dapat diakses khusus oleh staf berwenang.
+</Callout>
+
+### Kapan Mode Pemeliharaan Diaktifkan?
+*   Ketika tim infrastruktur melakukan migrasi server atau pembaruan database skala besar.
+*   Ketika terjadi lonjakan beban lalu lintas data ekstrem yang memerlukan penataan ulang konfigurasi jaringan.
+*   Selama jadwal pemeliharaan terencana yang telah diumumkan kepada sekolah beberapa hari sebelumnya.
+
+---
+
+## 2. Prosedur Mengaktifkan Mode Pemeliharaan
+
+<Steps>
+  <Step>
+    ### Buka Halaman Pengaturan
+    Arahkan ke `/settings` menggunakan akun bertingkat peran **Superadmin**.
+  </Step>
+
+  <Step>
+    ### Geser Sakelar Maintenance Mode
+    Aktifkan sakelar dari posisi `Off` menjadi `On`.
+  </Step>
+
+  <Step>
+    ### Tulis Pesan Pengumuman untuk Pengguna
+    *   **Judul Pengumuman**: Contoh: *"Pemeliharaan Sistem Terencana GameForSmart"*.
+    *   **Pesan Penjelasan**: Contoh: *"Sistem sedang menjalani peningkatan performa server. Diperkirakan selesai pada pukul 03.00 WIB. Mohon maaf atas ketidaknyamanan ini."*
+    *   **Perkiraan Waktu Selesai**: Atur jam dan tanggal perkiraan sistem kembali normal.
+  </Step>
+
+  <Step>
+    ### Terapkan Perubahan
+    Klik tombol **Terapkan Mode Pemeliharaan**. Layar aplikasi publik seketika berganti menjadi layar siaga pemeliharaan.
+  </Step>
+</Steps>
+
+---
+
+## 3. Mengembalikan Sistem ke Status Normal
+
+Setelah proses perbaikan teknis selesai dilakukan oleh tim pengembang:
+1.  Buka kembali `/settings`.
+2.  Geser sakelar **Maintenance Mode** kembali ke posisi `Off`.
+3.  Klik **Simpan**. Seluruh aplikasi pengguna akan kembali beroperasi normal secara seketika.
+

@@ -1,0 +1,68 @@
+---
+title: Kelola kompetisi 
+description: Panduan membuat Kompetisi baru, menyusun struktur babak berjenjang, mengelola whitelist peserta resmi, dan memantau klasemen juara.
+---
+
+# Kelola kompetisi
+
+Halaman **Kelola kompetisi** (`/manage-competitions`) adalah instrumen utama dalam merancang dan mengeksekusi ajang kompetisi dari awal pembukaan pendaftaran hingga babak penentuan juara.
+
+---
+
+## 1. Alur Membuat Kompetisi Baru
+
+<Steps>
+  <Step>
+    ### Tekan Tombol Tambah Kompetisi
+    Buka halaman `/manage-competitions`, lalu klik tombol **+ Buat Kompetisi Baru**.
+  </Step>
+
+  <Step>
+    ### Isi Profil Kompetisi
+    *   **Nama Kompetisi**: Contoh: *"Olimpiade Sains Cerdas Cermat Tingkat SMP Se-Kota 2026"*.
+    *   **Kategori**: Pilih jenjang pendidikan yang sesuai.
+    *   **Banner Poster**: Unggah poster visual Kompetisi untuk ditampilkan di aplikasi siswa.
+    *   **Biaya Registrasi**: Masukkan biaya tiket (isi `0` jika gratis). Jika berbayar, sistem otomatis mengintegrasikan penagihan via invoice Xendit.
+    *   **Kuota Maksimal**: Batas maksimum peserta atau regu yang dapat mendaftar.
+  </Step>
+
+  <Step>
+    ### Tentukan Jadwal Pelaksanaan
+    Tentukan rentang tanggal pendaftaran dibuka, batas penutupan pendaftaran, serta hari dan jam pembukaan babak pertama.
+  </Step>
+</Steps>
+
+---
+
+## 2. Struktur Babak Pertandingan (*Stages*)
+
+Kompetisi berskala besar umumnya dibagi menjadi beberapa babak eliminasi:
+1.  **Babak Penyisihan (*Preliminary Round*)**: Seluruh peserta bersaing secara serentak menjawab kuis dasar.
+2.  **Babak Semifinal**: 16 atau 32 peserta dengan skor tertinggi disaring ke babak lanjutan.
+3.  **Grand Final**: Babak pamungkas untuk menentukan Juara 1, 2, dan 3.
+
+Setiap babak dapat menggunakan judul game dan paket bank kuis yang berbeda agar tantangan semakin menarik.
+
+---
+
+## 3. Sistem Proteksi Peserta Resmi (*Session Whitelist*)
+
+Untuk mencegah kebocoran PIN room kepada pihak luar yang tidak terdaftar atau belum melunasi biaya pendaftaran:
+
+<Callout type="warn">
+  Fitur **Whitelist** memastikan bahwa hanya akun pemain yang telah berstatus `TERDAFTAR & LUNAS` yang diizinkan masuk ke dalam room pertandingan. Peserta liar yang mencoba memasukkan PIN game akan ditolak otomatis oleh sistem.
+</Callout>
+
+*   **Pemeriksaan Daftar Whitelist**: Buka tab *Daftar Peserta* di dalam Kompetisi terkait untuk memeriksa nama-nama yang telah terverifikasi.
+*   **Penambahan Manual Peserta**: Staf admin dapat menambahkan peserta secara manual jika terdapat peserta khusus undangan sekolah atau dinas pendidikan.
+
+---
+
+## 4. Klasemen Skor (*Standings*) & Kemajuan Babak
+
+Setelah sesi kuis pada satu babak selesai dimainkan:
+1.  Buka tab **Klasemen (Standings)**.
+2.  Sistem menyajikan daftar urutan peserta berdasarkan skor tertinggi dan durasi kecepatan menjawab.
+3.  Periksa apakah ada nilai mencurigakan sebelum menetapkan pemenang.
+4.  Klik tombol **Promosikan ke Babak Berikutnya** untuk secara otomatis memasukkan peserta terbaik ke babak semifinal atau final.
+

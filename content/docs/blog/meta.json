@@ -1,0 +1,10 @@
+{
+  "title": "Blog",
+  "pages": [
+    "index",
+    "manage-blog",
+    "blog-category",
+    "blog-sessions"
+  ]
+}
+

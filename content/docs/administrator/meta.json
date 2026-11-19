@@ -1,0 +1,9 @@
+{
+  "title": "Administrator",
+  "pages": [
+    "index",
+    "users",
+    "trash-bin"
+  ]
+}
+

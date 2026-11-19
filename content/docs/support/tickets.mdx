@@ -1,0 +1,53 @@
+---
+title: Tiket Bantuan
+description: Panduan penanganan tiket kendala pengguna, tingkatan prioritas SLA, alur percakapan bantuan, dan penyelesaian masalah.
+---
+
+# Tiket Bantuan
+
+Halaman **Tiket Bantuan** (`/support/tickets`) menampung seluruh permohonan bantuan teknis, kendala pembayaran tiket turnamen, dan pertanyaan umum yang diajukan oleh pemain, orang tua, maupun guru sekolah.
+
+---
+
+## 1. Tingkatan Prioritas & Target Waktu Tanggapan (SLA)
+
+Setiap tiket dikelompokkan ke dalam 4 tingkatan prioritas layanan:
+
+| Label Prioritas | Warna Indikator | Contoh Kasus Kendala | Target Waktu Tanggapan (SLA) |
+| :--- | :---: | :--- | :--- |
+| **Urgent** | Merah | Pembayaran turnamen sudah didebet rekening bank tapi status belum lunas saat pertandingan akan dimulai. | **Maksimal 15 Menit** |
+| **High** | Kuning | Room game turnamen mendadak freeze atau host terputus di tengah babak final. | **Maksimal 30 Menit** |
+| **Medium** | Biru | Pertanyaan seputar cara kurasi kuis, klaim e-sertifikat, atau kendala reset sandi. | **Maksimal 2 Jam** |
+| **Low** | Abu-abu | Masukan umum mengenai antarmuka atau saran penambahan tema game baru. | **Maksimal 24 Jam** |
+
+---
+
+## 2. Alur Penanganan Tiket
+
+<Steps>
+  <Step>
+    ### Pilih Tiket dari Antrean Teratas
+    Urutkan tabel berdasarkan prioritas (`Urgent` paling atas) atau waktu pembuatan tiket terlama. Klik baris tiket untuk membuka panel percakapan.
+  </Step>
+
+  <Step>
+    ### Pelajari Rincian Kendala & Bukti Pendukung
+    Periksa teks penjelasan pengguna dan buka lampiran berkas (misalnya foto bukti transfer mutasi atau tangkapan layar eror).
+  </Step>
+
+  <Step>
+    ### Berikan Tanggapan Ramah & Solutif
+    Ketikkan balasan resmi pada kolom percakapan:
+    *   Sapa pengguna dengan sopan.
+    *   Berikan instruksi langkah demi langkah yang jelas dan mudah dipahami oleh siswa maupun guru.
+    *   Ubah status tiket menjadi `IN_PROGRESS` jika Anda membutuhkan waktu untuk mengecek data ke tim billing atau developer.
+  </Step>
+
+  <Step>
+    ### Tutup Tiket (*Resolve*)
+    Setelah pengguna mengonfirmasi kendala telah teratasi (misalnya status whitelist turnamen sudah aktif):
+    *   Ubah status tiket menjadi `RESOLVED`.
+    *   Sistem akan mengirimkan kuesioner singkat kepuasan layanan bintang 1–5 kepada pengguna.
+  </Step>
+</Steps>
+

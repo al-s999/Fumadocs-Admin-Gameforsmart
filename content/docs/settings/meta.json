@@ -1,0 +1,11 @@
+{
+  "title": "Settings",
+  "pages": [
+    "index",
+    "appearance",
+    "profile",
+    "security",
+    "audit-log"
+  ]
+}
+

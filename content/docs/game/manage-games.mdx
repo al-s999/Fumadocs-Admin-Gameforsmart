@@ -1,0 +1,68 @@
+---
+title: Kelola Games
+description: Prosedur operasional memperbarui link permainan, mengganti poster sampul, menyunting aturan bermain, dan mengaktifkan mode pemeliharaan game.
+---
+
+# Kelola Games
+
+Halaman **Kelola Game** (`/manage-games`) memberikan wewenang kepada staf administrator untuk mengatur parameter operasional dari setiap permainan, termasuk mengubah tautan peluncuran (*Play URL*) dan menonaktifkan game tertentu yang sedang dalam perbaikan.
+
+---
+
+## 1. Meninjau Daftar Game yang Dikelola
+
+Halaman menyajikan tabel konfigurasi game yang memuat kolom:
+*   **Judul Game & Slug**: Identitas unik sistem permainan.
+*   **Play URL**: Alamat web mesin permainan tempat pemain terhubung saat room dibuat.
+*   **Versi Rilis**: Nomor versi rilis saat ini (contoh: `v1.4.2`).
+*   **Status Ketersediaan**: Sakelar aktif (*Toggle Switch*) yang menentukan apakah game dapat dipilih pengguna saat membuat room baru.
+
+---
+
+## 2. Langkah Memperbarui Konfigurasi Game
+
+Jika ada pembaruan tautan server game atau perubahan aset visual:
+
+<Steps>
+  <Step>
+    ### Pilih Game
+    Cari baris game yang hendak disunting, lalu klik tombol **Sunting (Edit)** di ujung kanan.
+  </Step>
+
+  <Step>
+    ### Perbarui Tautan Permainan (*Play URL*)
+    Ketikkan alamat URL baru jika server permainan telah dipindahkan. Pastikan tautan selalu diawali dengan `https://`.
+  </Step>
+
+  <Step>
+    ### Unggah Poster Sampul Baru
+    Jika terdapat materi promosi grafis baru, klik tombol **Unggah Gambar** (disarankan format WebP atau PNG dengan rasio 16:9).
+  </Step>
+
+  <Step>
+    ### Perbarui Teks Panduan Bermain (*How to Play*)
+    Sunting ringkasan cara bermain yang akan dibaca oleh pemain di dalam lobi game sebelum permainan dimulai.
+  </Step>
+
+  <Step>
+    ### Simpan Perubahan
+    Klik tombol **Simpan Konfigurasi**. Perubahan akan langsung tercermin seketika pada aplikasi pengguna (*client app*).
+  </Step>
+</Steps>
+
+---
+
+## 3. Prosedur Mengaktifkan Mode Pemeliharaan (*Maintenance Mode*)
+
+Jika tim teknis melaporkan adanya gangguan koneksi atau *bug* kritis pada salah satu game (misalnya *CrazyRace*):
+
+<Callout type="warn">
+  Mengaktifkan mode pemeliharaan pada level game akan mencegah pemain membuat room baru untuk game tersebut. Room yang sedang berjalan akan diizinkan menyelesaikan babak terakhir sebelum ditutup.
+</Callout>
+
+1.  Buka baris game yang mengalami kendala di `/manage-games`.
+2.  Geser sakelar **Status Ketersediaan** dari hijau (*Aktif*) menjadi abu-abu (*Nonaktif/Maintenance*).
+3.  Ketikkan pesan pemberitahuan singkat untuk pemain, contoh: *"CrazyRace sedang menjalani peningkatan server hingga pukul 14.00 WIB."*
+4.  Klik **Terapkan**. Pemain yang membuka game tersebut akan melihat layar informasi pemeliharaan ramah pengguna.
+5.  Setelah perbaikan server selesai, kembalikan sakelar ke posisi hijau (*Aktif*).
+

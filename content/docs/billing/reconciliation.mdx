@@ -1,0 +1,41 @@
+---
+title: Rekonsiliasi Mutasi
+description: Panduan staf keuangan dalam mencocokkan mutasi kas rekening Xendit dengan data registrasi turnamen sistem.
+---
+
+# Rekonsiliasi Mutasi
+
+Halaman **Rekonsiliasi** (`/billing/reconciliation`) dirancang khusus untuk staf admin keuangan guna memverifikasi kesesuaian antara penerimaan dana nyata pada rekening Xendit dengan pencatatan transaksi di database GameForSmart.
+
+---
+
+## 1. Fungsi & Tujuan Rekonsiliasi
+
+Proses rekonsiliasi berkala (harian atau mingguan) bertujuan untuk:
+1.  **Mencegah Selisih Kas**: Memastikan setiap rupiah yang ditransfer peserta tercatat rapi pada laporan turnamen terkait.
+2.  **Menghitung Potongan Biaya Transaksi (*Gateway Fee*)**: Memantau biaya administrasi per transaksi yang dipotong oleh penyedia jasa pembayaran.
+3.  **Verifikasi Pengembalian Dana (*Refund*)**: Meninjau riwayat dana turnamen yang dikembalikan apabila sebuah acara perlombaan dibatalkan atau mengalami perubahan jadwal besar.
+
+---
+
+## 2. Alur Pelaksanaan Rekonsiliasi Harian
+
+<Steps>
+  <Step>
+    ### Pilih Periode Tanggal Laporan
+    Tentukan rentang tanggal penarikan mutasi (misalnya: tanggal 1 hingga 30 bulan berjalan).
+  </Step>
+
+  <Step>
+    ### Periksa Status Selisih (*Discrepancy Check*)
+    Sistem akan secara otomatis membandingkan data invoice berstatus `PAID` dengan data penarikan mutasi dari Xendit:
+    *   **Status Sesuai (Matched - Hijau)**: Tidak ada selisih nilai nominal.
+    *   **Status Selisih (Discrepancy - Merah)**: Terjadi ketidaksesuaian nilai nominal atau transaksi ganda yang memerlukan pengecekan manual.
+  </Step>
+
+  <Step>
+    ### Ekspor Laporan (*Export to Excel/CSV*)
+    Klik tombol **Ekspor Laporan Finansial** untuk mengunduh rekapitulasi data dalam format berkas Excel atau CSV untuk diserahkan ke bagian akuntansi instansi.
+  </Step>
+</Steps>
+
