@@ -173,7 +173,7 @@ export default function HomePage() {
             className="inline-flex items-center gap-2 rounded-lg border border-fd-border bg-fd-card px-4 py-2 text-sm font-medium hover:bg-fd-accent transition-colors"
           >
             <ExternalLink className="size-3.5" />
-            Buka portal admin
+            Buka dashboard admin
           </a>
         </div>
       </section>
@@ -271,7 +271,7 @@ export default function HomePage() {
         <div className="rounded-xl border border-fd-border bg-fd-card px-8 py-10 text-center">
           <h2 className="text-xl font-semibold mb-2">Siap bertugas sebagai administrator?</h2>
           <p className="text-sm text-fd-muted-foreground mb-6 max-w-sm mx-auto leading-relaxed">
-            Pelajari panduan orientasi atau masuk ke portal admin resmi untuk memulai tugas operasionalmu.
+            Pelajari panduan orientasi atau masuk ke dashboard admin resmi untuk memulai tugas operasionalmu.
           </p>
           <div className="flex flex-wrap justify-center gap-2.5">
             <a

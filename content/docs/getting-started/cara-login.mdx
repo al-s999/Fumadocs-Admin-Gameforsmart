@@ -1,102 +1,42 @@
 ---
-title: Cara Masuk & Pemulihan Akun
-description: Panduan langkah demi langkah cara masuk ke portal admin, perlindungan keamanan akun, pemulihan kata sandi, dan cara keluar sesi secara aman.
+title: Cara Masuk
+description: Panduan langkah masuk ke dashboard admin, proteksi keamanan akun, dan tata cara keluar secara aman.
 ---
 
-# Cara Masuk & Pemulihan Akun
+# Cara Masuk
 
-Portal Administrator GameForSmart menerapkan standar keamanan ketat untuk melindungi ekosistem game dan data seluruh pengguna. Halaman ini menjelaskan prosedur resmi untuk masuk ke dalam portal, langkah pemulihan akun jika Anda lupa kata sandi, dan tata cara mengakhiri sesi kerja operasional.
-
----
-
-## 1. Alamat Portal Resmi
-
-Pastikan Anda hanya mengakses portal admin melalui alamat web resmi yang disediakan oleh instansi:
-
-<Callout type="warn">
-  Selalu periksa bilah alamat (*address bar*) pada peramban Anda. Pastikan diawali dengan protokol `https://` dan beralamat resmi. Jangan pernah memasukkan data kredensial admin pada situs pihak ketiga atau tautan asing yang mencurigakan (*phishing*).
-</Callout>
+Halaman ini memuat panduan masuk ke akun admin GameForSmart, mekanisme proteksi akun, serta tata cara keluar sesi.
 
 ---
 
-## 2. Langkah Masuk ke Portal (*Login*)
+## 1. Alamat Resmi Website
 
-Ikuti langkah-langkah di bawah ini untuk mengakses area kerja operasional:
-
-<Steps>
-  <Step>
-    ### Buka Halaman Masuk
-    Arahkan peramban web Anda ke tautan login admin resmi. Anda akan melihat formulir masuk dengan logo **GameForSmart**.
-  </Step>
-
-  <Step>
-    ### Masukkan Identitas Akun
-    Ketikkan **Alamat Surel (Email)** atau **Nama Pengguna (Username)** yang telah didaftarkan oleh Superadmin pada kolom isian pertama.
-  </Step>
-
-  <Step>
-    ### Masukkan Kata Sandi
-    Ketikkan kata sandi rahasia Anda pada kolom kedua. Pastikan tombol *Caps Lock* pada keyboard tidak aktif tanpa sengaja.
-  </Step>
-
-  <Step>
-    ### Selesaikan Verifikasi Keamanan (reCAPTCHA)
-    Centang kotak verifikasi reCAPTCHA guna membuktikan bahwa Anda adalah operator manusia dan bukan bot otomatis.
-  </Step>
-
-  <Step>
-    ### Masukkan Kode Verifikasi 2FA (Bila Diaktifkan)
-    Jika akun Anda telah dilengkapi autentikasi dua faktor (*Two-Factor Authentication* / 2FA), sistem akan meminta **6 digit kode OTP** dari aplikasi autentikator di ponsel Anda (seperti Google Authenticator).
-  </Step>
-
-  <Step>
-    ### Klik Tombol "Masuk ke Dashboard"
-    Setelah seluruh data terisi dengan benar, tekan tombol **Masuk**. Sistem akan memverifikasi peran Anda dan mengarahkan halaman kerja sesuai tugas:
-    *   **Superadmin**: Diarahkan langsung ke halaman ringkasan `/dashboard`.
-    *   **Admin Billing**: Diarahkan ke dashboard keuangan `/billing/dashboard`.
-    *   **Admin Support**: Diarahkan ke dashboard penanganan tiket `/support/dashboard`.
-  </Step>
-</Steps>
+*   Pastikan URL di bilah peramban diawali dengan protokol aman `https://`.
+*   Hindari memasukkan data kredensial admin pada situs pihak ketiga atau tautan yang mencurigakan.
 
 ---
 
-## 3. Sistem Proteksi Percobaan Masuk (*Brute-Force Protection*)
+## 2. Langkah Masuk (Login)
 
-Untuk melindungi portal dari upaya penerobosan paksa oleh pihak luar, sistem dilengkapi mekanisme keamanan bertingkat:
-
-*   **Batas Kesalahan Input (3 Kali)**: Jika Anda memasukkan kata sandi yang salah sebanyak **3 kali berturut-turut**, akun dan alamat IP peramban Anda akan terkunci (*locked out*) secara otomatis selama masa *cooldown*.
-*   **Pencegahan Serangan Server**: Percobaan masuk yang salah berulang dalam rentang 15 menit akan diblokir sementara oleh firewall server.
-*   **Pencatatan Log Otomatis**: Setiap percobaan masuk—baik yang berhasil maupun yang gagal—otomatis dicatat ke dalam *Audit Trail* bersama alamat IP, waktu akses, dan jenis perangkat yang digunakan.
-
-<Callout type="error">
-  Jika layar menampilkan pesan **"Terlalu banyak percobaan login"** atau status terkunci, jangan mencoba menebak kembali. Segera hubungi **Superadmin** instansi Anda untuk memverifikasi identitas dan membuka blokir akun.
-</Callout>
+1.  **Buka Halaman Login**: Akses halaman login resmi admin GameForSmart.
+2.  **Masukkan Identitas Akun**: Ketikkan alamat email atau username yang telah didaftarkan.
+3.  **Masukkan Kata Sandi**: Masukkan kata sandi akun Anda.
+4.  **Verifikasi Keamanan**: Selesaikan verifikasi reCAPTCHA.
+5.  **Klik Login**: Sistem akan memvalidasi akun dan mengarahkan Anda ke dashboard kerja sesuai peran.
 
 ---
 
-## 4. Alur Pemulihan Kata Sandi (*Forgot Password*)
+## 3. Proteksi Percobaan Masuk
 
-Apabila Anda lupa kata sandi akun admin Anda:
-
-1.  Pada bagian bawah formulir masuk, klik tautan teks **Lupa Kata Sandi?**.
-2.  Ketikkan alamat email dinas Anda yang terdaftar pada sistem GameForSmart.
-3.  Tekan tombol **Kirim Tautan Pemulihan**.
-4.  Buka kotak masuk email dinas Anda dan periksa pesan dari GameForSmart (periksa juga folder *Spam* atau *Promosi* jika belum masuk dalam 2 menit).
-5.  Klik tombol atau tautan konfirmasi di dalam email untuk membuka formulir pembuatan kata sandi baru.
-6.  Buat kata sandi baru yang kuat (minimal 8 karakter, kombinasi huruf besar, huruf kecil, angka, dan simbol unik), lalu klik **Simpan Kata Sandi**.
+*   **Batas Salah Input**: Akun terkunci otomatis jika salah memasukkan kata sandi sebanyak 3 kali berturut-turut.
+*   **Pencegahan Brute-Force**: Percobaan login salah berulang akan dibatasi sementara oleh firewall sistem.
+*   **Log Akses**: Setiap aktivitas login berhasil maupun gagal dicatat otomatis di log audit.
+*   **Bantuan Akun Terkunci**: Jika akun terkunci, hubungi Superadmin untuk verifikasi dan pembukaan blokir.
 
 ---
 
-## 5. Tata Cara Keluar Akun (*Logout*) Secara Aman
+## 4. Cara Keluar (Logout)
 
-Setelah selesai menjalankan jam tugas operasional atau ketika hendak meninggalkan perangkat komputer:
-
-1.  Arahkan kursor ke sudut kanan atas layar, lalu klik **Menu Profil (Avatar)** Anda.
-2.  Pilih opsi **Keluar** (*Logout*) dari daftar menu drop-down.
-3.  Kotak dialog konfirmasi akan muncul untuk memastikan Anda tidak keluar secara tidak sengaja. Klik tombol **Ya, Keluar**.
-4.  Sesi autentikasi aman (*secure session token*) pada peramban akan dihapus secara otomatis dan halaman kembali ke formulir login awal.
-
-<Callout type="tip">
-  Jangan pernah meninggalkan komputer dalam kondisi dashboard admin terbuka tanpa pengawasan (*unattended workstation*). Biasakan selalu menekan tombol **Logout** saat jam kerja berakhir.
-</Callout>
-
+1.  Klik **Menu Profil (Avatar)** di sudut kanan atas layar.
+2.  Pilih opsi **Logout**.
+3.  Konfirmasi pada kotak dialog yang muncul untuk mengakhiri sesi kerja secara aman.
