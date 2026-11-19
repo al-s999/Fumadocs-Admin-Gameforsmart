@@ -1,35 +1,55 @@
 ---
 title: Kelola Publikasi Quis
-description: Panduan kurasi kelayakan butir soal kiriman komunitas, alur persetujuan publikasi, dan penolakan kuis.
+description: Panduan staf kurasi dalam memeriksa kelayakan butir soal kiriman komunitas, alur persetujuan publikasi, dan penolakan kuis.
 ---
 
 # Kelola Publikasi Quis
 
-Halaman **Kelola Publikasi Quis** (`/quiz-approval`) digunakan oleh staf kurator untuk memvalidasi kelayakan paket kuis yang diajukan oleh guru atau komunitas sebelum ditayangkan secara publik.
+Halaman **Kelola Publikasi Quis** (`/quiz-approval`) adalah ruang kerja khusus bagi staf kurator untuk memvalidasi kelayakan paket kuis yang diajukan oleh para pengajar atau komunitas agar dapat ditayangkan secara publik.
 
 ---
 
-## 1. Kriteria Kurasi Kuis
+## 1. Tanggung Jawab Staf Kurasi
 
-*   **Akurasi Keilmuan**: Pertanyaan dan kunci jawaban faktual, akurat, dan tidak ambigu.
-*   **Norma & Etika**: Bebas dari unsur kekerasan, pornografi, ujaran kebencian, dan SARA.
-*   **Kualitas Visual**: Gambar pendukung soal jelas, terbaca, dan memiliki rasio yang sesuai.
-*   **Waktu Menjawab**: Durasi pengerjaan proporsional dengan tingkat kerumitan soal.
+Menjaga kualitas konten adalah fondasi utama kepercayaan guru dan siswa terhadap GameForSmart. Dalam meninjau kuis, perhatikan 4 kriteria utama:
 
----
-
-## 2. Alur Peninjauan & Persetujuan
-
-1.  Pilih kuis berstatus `PENDING_REVIEW` pada antrean, lalu klik tombol **Tinjau Kuis**.
-2.  Periksa daftar pertanyaan, opsi jawaban, dan kunci jawaban yang ditandai pembuat.
-3.  **Setujui Kuis**: Jika memenuhi seluruh standar, klik tombol hijau **Setujui (Approve)**. Status kuis berubah menjadi `PUBLISHED`.
+1.  **Akurasi Keilmuan**: Apakah pertanyaan dan kunci jawaban secara faktual sudah benar dan tidak menyesatkan?
+2.  **Kesesuaian Norma & Etika**: Pastikan tidak ada unsur kekerasan, ujaran kebencian, diskriminasi SARA, pornografi, atau bahasa kasar.
+3.  **Kualitas Visual**: Pastikan gambar pendukung soal tidak buram, tidak terdistorsi, dan tidak melanggar hak cipta.
+4.  **Keseimbangan Waktu**: Pastikan batas waktu menjawab proporsional dengan panjang dan tingkat kesulitan soal.
 
 ---
 
-## 3. Alur Penolakan Kuis (*Reject Flow*)
+## 2. Alur Peninjauan Butir Soal
 
-Jika kuis belum memenuhi kriteria kelayakan:
-1.  Klik tombol merah **Tolak (Reject)**.
-2.  Pilih salah satu templat alasan penolakan yang sesuai dari daftar templat.
-3.  Tambahkan catatan saran perbaikan pada kolom teks agar pembuat kuis dapat memperbaiki soalnya.
-4.  Klik **Kirim Penolakan**. Notifikasi revisi otomatis dikirimkan ke akun pembuat kuis.
+<Steps>
+  <Step>
+    ### Pilih Kuis dari Antrean
+    Buka daftar kuis berstatus `PENDING_REVIEW` pada tabel, lalu klik tombol **Tinjau Kuis (Review)**.
+  </Step>
+
+  <Step>
+    ### Periksa Informasi & Seluruh Pertanyaan
+    Panel pratinjau akan menampilkan daftar seluruh soal beserta 4 opsi jawaban dan kunci jawaban yang ditandai hijau oleh pembuatnya.
+  </Step>
+
+  <Step>
+    ### Pengambilan Keputusan Kurasi
+    Setelah membaca seluruh soal secara seksama:
+    *   **Jika Memenuhi Syarat**: Klik tombol hijau **Setujui (Approve)**. Status kuis seketika berubah menjadi `PUBLISHED` dan otomatis tampil di direktori publik GameForSmart.
+    *   **Jika Belum Memenuhi Syarat**: Klik tombol merah **Tolak (Reject)**.
+  </Step>
+</Steps>
+
+---
+
+## 3. Prosedur Penolakan Kuis (*Reject Flow*)
+
+Jika kuis dinilai belum layak tayang:
+
+1.  Klik tombol **Tolak Kuis**.
+2.  Jendela pilihan alasan penolakan akan muncul.
+3.  Pilih salah satu templat alasan penolakan yang sesuai (misal: *"Kunci jawaban pada nomor 3 tidak tepat"* atau *"Gambar ilustrasi pecah"*).
+4.  Tambahkan catatan saran perbaikan pada kolom teks tambahan agar pembuat kuis memahami bagian mana yang perlu diperbaiki.
+5.  Klik tombol **Kirim Penolakan**. Sistem akan mengirimkan notifikasi resmi kepada pembuat kuis bersama rincian alasan penolakan tersebut. Pembuat kuis dapat menyunting ulang soal dan mengajukannya kembali.
+

@@ -1,29 +1,53 @@
 ---
 title: Tiket Bantuan
-description: Panduan penanganan tiket kendala pengguna, tingkatan prioritas, dan alur penyelesaian masalah.
+description: Panduan penanganan tiket kendala pengguna, tingkatan prioritas SLA, alur percakapan bantuan, dan penyelesaian masalah.
 ---
 
 # Tiket Bantuan
 
-Halaman **Tiket Bantuan** (`/support/tickets`) digunakan untuk merespons dan menyelesaikan kendala teknis, transaksi, maupun pertanyaan dari pengguna GameForSmart.
+Halaman **Tiket Bantuan** (`/support/tickets`) menampung seluruh permohonan bantuan teknis, kendala pembayaran tiket turnamen, dan pertanyaan umum yang diajukan oleh pemain, orang tua, maupun guru sekolah.
 
 ---
 
-## 1. Tingkatan Prioritas Tiket
+## 1. Tingkatan Prioritas
 
 Setiap tiket dikelompokkan ke dalam 4 tingkatan prioritas:
-*   **Urgent (Merah)**: Kendala kritis mendesak (misal: pembayaran tiket turnamen belum terverifikasi saat pertandingan dimulai).
-*   **High (Kuning)**: Gangguan sesi berjalan (misal: room game freeze atau terputus di babak final).
-*   **Medium (Biru)**: Kendala operasional umum (misal: kurasi kuis, klaim sertifikat, reset kata sandi).
-*   **Low (Abu-abu)**: Saran, masukan umum, atau pertanyaan seputar fitur platform.
+
+| Label Prioritas | Warna Indikator | Contoh Kasus Kendala |
+| :--- | :---: | :--- |
+| **Urgent** | Merah | Pembayaran turnamen sudah didebet rekening bank tapi status belum lunas saat pertandingan akan dimulai. |
+| **High** | Kuning | Room game turnamen mendadak freeze atau host terputus di tengah babak final. |
+| **Medium** | Biru | Pertanyaan seputar cara kurasi kuis, klaim e-sertifikat, atau kendala reset sandi. |
+| **Low** | Abu-abu | Masukan umum mengenai antarmuka atau saran penambahan tema game baru. |
 
 ---
 
 ## 2. Alur Penanganan Tiket
 
-1.  **Pilih Tiket**: Buka tiket dari daftar, prioritaskan status `Urgent` atau tiket terlama.
-2.  **Pelajari Kendala**: Periksa deskripsi masalah dan lampiran bukti pendukung (tangkapan layar atau bukti transfer).
-3.  **Beri Solusi**: Balas pesan pengguna dengan solusi yang jelas, lalu ubah status menjadi `IN_PROGRESS` jika membutuhkan investigasi lanjutan.
-4.  **Tutup Tiket**:
-    *   **RESOLVED**: Pilih status ini jika kendala telah berhasil diatasi dengan baik dan dikonfirmasi oleh pengguna.
-    *   **CLOSED**: Pilih status ini jika tiket sudah selesai sepenuhnya atau ditutup karena pengguna tidak memberikan respons lanjutan.
+<Steps>
+  <Step>
+    ### Pilih Tiket Support
+    Urutkan tabel berdasarkan prioritas (`Urgent` paling atas) atau waktu pembuatan tiket terlama. Klik baris tiket untuk membuka panel percakapan.
+  </Step>
+
+  <Step>
+    ### Pelajari Rincian Kendala & Bukti Pendukung
+    Periksa teks penjelasan pengguna dan buka lampiran berkas (misalnya foto bukti transfer mutasi atau tangkapan layar eror).
+  </Step>
+
+  <Step>
+    ### Berikan Solusi
+    Ketikkan balasan pada kolom percakapan:
+    *   Sapa pengguna dengan sopan.
+    *   Berikan instruksi langkah demi langkah yang jelas dan mudah dipahami oleh siswa maupun guru.
+    *   Ubah status tiket menjadi `IN_PROGRESS` jika Anda membutuhkan waktu untuk mengecek data ke tim billing atau developer.
+  </Step>
+
+  <Step>
+    ### Tutup Tiket
+    Setelah pengguna mengonfirmasi kendala telah teratasi (misalnya status whitelist turnamen sudah aktif):
+    *   Ubah status tiket menjadi `RESOLVED` apabila kendala telah berhasil teratasi dengan baik atau `CLOSED` apabila penanganan tiket telah selesai sepenuhnya atau pengguna tidak memberikan tanggapan lanjutan.
+    *   Sistem akan mengirimkan kuesioner singkat kepuasan layanan bintang 1–5 kepada pengguna.
+  </Step>
+</Steps>
+

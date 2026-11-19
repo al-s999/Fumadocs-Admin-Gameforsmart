@@ -5,26 +5,46 @@ description: Prosedur investigasi laporan kecurangan skor permainan, kata-kata t
 
 # Laporan Pelanggaran
 
-Halaman **Laporan Pelanggaran** (`/reports`) digunakan untuk menindaklanjuti laporan aduan dari pemain mengenai pelanggaran aturan atau perilaku tidak sportif.
+Halaman **Laporan Pelanggaran** (`/reports`) digunakan untuk menindaklanjuti laporan aduan yang dikirimkan oleh sesama pemain mengenai perilaku yang merusak sportivitas atau melanggar norma komunitas GameForSmart.
 
 ---
 
 ## 1. Jenis Pelanggaran
 
-*   **Kecurangan (*Cheating*)**: Indikasi penggunaan bot atau skrip otomatisasi yang menjawab kuis secara tidak wajar (< 0.2 detik).
-*   **Profil Tidak Pantas**: Nama pengguna (*username*) atau avatar yang memuat unsur pelecehan, SARA, atau pornografi.
-*   **Perilaku Mengganggu (*Griefing*)**: Spam pada obrolan tim atau keluar-masuk room secara berulang untuk mengganggu permainan.
+Laporan yang masuk umumnya terbagi menjadi beberapa kategori:
+*   **Kecurangan (*Cheating / Exploitation*)**: Dugaan penggunaan skrip otomatisasi bot peramban yang menjawab kuis dalam waktu 0.1 detik secara konsisten.
+*   **Nama Pengguna Tidak Pantas (*Inappropriate Nickname*)**: Menggunakan nama profil yang mengandung unsur pelecehan, pornografi, atau ujaran kebencian.
+*   **Perilaku Mengganggu (*Griefing*)**: Sengaja melakukan spam di ruang obrolan tim atau keluar-masuk room secara berulang untuk membuat lobi macet.
 
 ---
 
-## 2. Alur Investigasi & Penindakan
+## 2. Langkah Investigasi
 
-1.  **Buka Laporan**: Klik baris laporan untuk melihat data pelapor, pihak terlapor, waktu kejadian, dan bukti pendukung.
-2.  **Verifikasi Riwayat Sesi**: Periksa log waktu respon dan rekam jejak sesi permainan terkait.
-3.  **Terapkan Sanksi**:
-    *   **Peringatan**: Kirimkan teguran resmi untuk pelanggaran ringan pertama.
-    *   **Reset Profil**: Ganti nama pengguna atau avatar yang melanggar menjadi format netral sistem.
-    *   **Tangguhkan / Blokir**: Kunci akun sementara (3–7 hari) atau permanen untuk kecurangan terbukti.
-4.  **Tutup Laporan**:
-    *   **RESOLVED**: Pilih status ini jika laporan terbukti valid dan penindakan telah selesai diterapkan.
-    *   **CLOSED**: Pilih status ini jika laporan tidak terbukti atau ditutup tanpa tindakan lebih lanjut.
+Sebelum menjatuhkan sanksi disipliner kepada akun pemain yang dilaporkan:
+
+<Steps>
+  <Step>
+    ### Buka ticket Laporan
+    Klik baris laporan pada tabel untuk melihat nama pelapor, nama terlapor, waktu kejadian, dan bukti laporan.
+  </Step>
+
+  <Step>
+    ### Periksa Riwayat Sesi
+    Buka detail sesi room tempat kejadian berlangsung. Periksa log catatan waktu menjawab kuis terlapor. Jika seluruh soal sulit dijawab dalam waktu 0.2 detik dengan skor sempurna tanpa variasi manusiawi, indikasi penggunaan bot sangat kuat.
+  </Step>
+
+  <Step>
+    ### Ambil Tindakan
+    Sesuai beratnya pelanggaran:
+    *   **Peringatan Pertama**: Kirimkan pesan teguran resmi ke kotak masuk akun pemain.
+    *   **Reset Nama Pengguna**: Ubah paksa nama pengguna yang vulgar menjadi nama default netral (misal: `Pemain_4921`).
+    *   **Penangguhan Sementara (*Temporary Suspension*)**: Kunci akses akun selama 3 hingga 7 hari.
+    *   **Pemblokiran Permanen (*Permanent Ban*)**: Untuk pelanggaran kecurangan terbukti pada turnamen resmi berhadiah besar.
+  </Step>
+
+  <Step>
+    ### Tutup Laporan
+    Ubah status tiket menjadi `RESOLVED` apabila laporan benar dan sudah diberikan sanksi atau `CLOSED` apabila laporan tidak benar.
+  </Step>
+</Steps>
+

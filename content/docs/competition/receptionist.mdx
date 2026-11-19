@@ -1,34 +1,51 @@
 ---
 title: Resepsionis
-description: Panduan operasional staf resepsionis turnamen dalam memindai tiket kode QR peserta dan memvalidasi presensi fisik.
+description: Panduan operasional bagi staf resepsionis lapangan kompetisi dalam memindai tiket kode QR peserta dan memvalidasi presensi fisik di arena tanding.
 ---
 
 # Resepsionis
 
-Halaman **Resepsionis** (`/receptionist`) dirancang khusus untuk staf lapangan dalam memindai tiket kode QR peserta turnamen tatap muka (*offline*).
+Halaman **Resepsionis** (`/receptionist`) dirancang secara khusus untuk staf lapangan yang bertugas di registrasi kompetisi tatap muka (*offline event*). Halaman ini mengubah komputer atau gawai ber-kamera menjadi alat pemindai kode QR berkecepatan tinggi.
 
 ---
 
-## 1. Persiapan Perangkat
+## 1. Persiapan Perangkat di Registrasi
 
-*   **Izin Kamera**: Klik **Izinkan (Allow)** saat peramban meminta izin akses kamera.
-*   **Pilih Kamera**: Pilih sumber kamera (webcam laptop atau scanner eksternal USB) dari menu drop-down.
-*   **Pencahayaan**: Pastikan meja registrasi memiliki pencahayaan cukup agar pembacaan kode QR berjalan lancar.
-
----
-
-## 2. Alur Pemindaian Tiket (*Check-in*)
-
-1.  Pilih nama kompetisi yang sedang berlangsung pada menu bagian atas.
-2.  Arahkan tiket kode QR dari ponsel peserta ke arah kamera.
-3.  Sistem otomatis membaca data dan memvalidasi status pendaftaran peserta.
-4.  Jika tiket valid, berikan tanda pengenal peserta (*nametag*) atau suvenir acara.
+Sebelum gerbang registrasi turnamen dibuka, pastikan:
+1.  **Izin Kamera (*Camera Permission*)**: Ketika pertama kali membuka halaman `/receptionist`, peramban akan meminta izin akses kamera. Klik tombol **Izinkan (Allow)**.
+2.  **Pilih Kamera yang Tepat**: Jika laptop Anda terhubung dengan kamera pemindai eksternal (USB Barcode Scanner/Webcam tambahan), pilih perangkat kamera tersebut dari menu drop-down kamera.
+3.  **Pencahayaan Registrasi**: Pastikan pencahayaan di cukup agar kamera dapat menangkap gambar kode QR pada layar ponsel peserta dengan cepat.
 
 ---
 
-## 3. Indikator Status Pemindaian
+## 2. Alur Pemindaian Tiket Peserta (*Check-in Flow*)
 
-*   **Layar Hijau (Berhasil)**: Tiket valid, data peserta tampil di layar, dan kehadiran tercatat sebagai `HADIR`.
-*   **Layar Kuning (Sudah Digunakan)**: Tiket sudah pernah dipindai sebelumnya.
-*   **Layar Merah (Tidak Valid)**: Kode tiket tidak terdaftar atau transaksi belum diselesaikan.
-*   **Pencarian Manual**: Jika kamera peserta rusak, gunakan kolom pencarian untuk *check-in* manual berdasarkan nama/nomor tiket.
+<Steps>
+  <Step>
+    ### Pilih Turnamen yang Berlangsung
+    Pada menu atas resepsionis, pilih nama kompetisi yang sedang diadakan hari ini.
+  </Step>
+
+  <Step>
+    ### Arahkan Kode QR Peserta ke Kamera
+    Minta peserta membuka tiket elektronik (*E-Ticket*) dari aplikasi GameForSmart pada ponsel mereka, lalu arahkan layar ponsel ke depan lensa kamera.
+  </Step>
+
+  <Step>
+    ### Pembacaan Otomatis oleh Sistem
+    Sistem akan berbunyi bip (*beep*) dan seketika memvalidasi kode tiket:
+    *   **Layar Berwarna Hijau (BERHASIL)**: Tiket valid, data peserta (nama, asal sekolah, dan nomor regu) muncul di layar, dan status kehadiran otomatis tercatat sebagai `HADIR (CHECKED-IN)`.
+    *   **Layar Berwarna Kuning (SUDAH PERNAH DIGUNAKAN)**: Menandakan tiket tersebut sudah pernah dipindai sebelumnya. Waspadai indikasi pemalsuan atau duplikasi tiket masuk.
+    *   **Layar Berwarna Merah (TIDAK DITEMUKAN)**: Kode QR bukan tiket turnamen ini atau status pembayaran peserta belum lunas.
+  </Step>
+
+  <Step>
+    ### Berikan Kartu Peserta Fisik
+    Setelah layar menampilkan status hijau, berikan kartu identitas peserta (*nametag*) atau suvenir perlombaan dan persilakan peserta menuju ruang tanding.
+  </Step>
+</Steps>
+
+<Callout type="tip">
+  **Opsi Pencarian Manual**: Jika kamera ponsel peserta retak atau baterainya habis, staf resepsionis dapat mengetikkan nomor tiket atau nama peserta pada kolom **Cari Peserta Manual** untuk melakukan *check-in* manual dengan persetujuan koordinator lapangan.
+</Callout>
+

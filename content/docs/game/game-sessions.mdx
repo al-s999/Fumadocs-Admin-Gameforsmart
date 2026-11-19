@@ -1,38 +1,65 @@
 ---
 title: Game Sessions
-description: Panduan memantau room game aktif secara waktu nyata, melacak Game PIN, dan prosedur penutupan darurat sesi.
+description: Panduan memantau room game yang sedang aktif secara waktu nyata, melacak 6 digit PIN room, dan prosedur penghentian darurat.
 ---
 
 # Game Sessions
 
-Halaman **Game Sessions** (`/game-sessions`) adalah panel kendali untuk memantau room game yang sedang aktif dimainkan oleh siswa dan guru di platform GameForSmart.
+Halaman **Game Sessions** (`/game-sessions`) adalah panel kendali pusat pengawasan room game yang sedang aktif dimainkan di seluruh sekolah dan komunitas.
 
 ---
 
-## 1. Parameter Tabel Sesi
+## 1. Membaca Tabel Sesi Berjalan
 
-Tabel menyajikan informasi setiap room aktif:
-*   **Game PIN**: 6 digit kode akses unik yang dimasukkan peserta untuk masuk ke room.
-*   **Judul Game**: Permainan yang sedang dijalankan (*SpaceQuiz, CrazyRace, dll.*).
-*   **Host / Pembuat**: Nama dan email pemandu sesi (guru atau admin).
-*   **Jumlah Pemain**: Jumlah peserta yang sedang terhubung di dalam room.
-*   **Status Sesi**: `WAITING` (di lobi) atau `IN_GAME` (sedang berlangsung).
-*   **Waktu Mulai**: Waktu pembuatan room untuk mendeteksi sesi yang terbengkalai.
+Tabel sesi menyajikan baris-baris room yang sedang terbuka secara *live*:
 
----
-
-## 2. Pencarian & Filter Room
-
-*   **Cari PIN**: Ketikkan 6 digit angka Game PIN untuk menemukan room spesifik.
-*   **Filter Game**: Saring tampilan berdasarkan judul game tertentu.
-*   **Filter Status**: Tampilkan sesi berdasarkan status (`WAITING` atau `IN_GAME`).
+| Kolom | Deskripsi Data | Makna Operasional |
+| :--- | :--- | :--- |
+| **Game PIN** | 6 digit angka unik (misal: `849 201`) | Kode rahasia yang dimasukkan siswa pada ponsel untuk masuk room. |
+| **Judul Game** | Game yang dimainkan (*SpaceQuiz, dll.*) | Memastikan mekanik game yang dipilih. |
+| **Host / Pembuat** | Nama pengguna dan surel pembuat room | Kontak guru atau staf pemandu sesi. |
+| **Jumlah Pemain** | Angka pemain saat ini (contoh: `28 Pemain`) | Menilai skala room yang berjalan. |
+| **Status Sesi** | `WAITING` (Di Lobi) / `IN_GAME` (Sedang Main) | Mengetahui tahap permainan. |
+| **Waktu Mulai** | Jam dan stempel waktu room dibuat | Mendeteksi room yang terbengkalai terlalu lama. |
 
 ---
 
-## 3. Penutupan Darurat Room (*Force Close*)
+## 2. Fitur Pencarian & Filter Room
 
-Gunakan fitur ini jika room mengalami kendala jaringan atau ditinggalkan host tanpa ditutup:
-1.  Cari room bermasalah menggunakan Game PIN atau nama host.
-2.  Klik tombol **Hentikan Sesi (Force Close)** berlambang merah di kolom aksi.
-3.  Ketikkan alasan penutupan (misal: *"Host terputus jaringan"*).
-4.  Klik **Konfirmasi Tutup**. Seluruh pemain akan dikeluarkan dan status room berubah menjadi `TERMINATED`.
+Gunakan panel di atas tabel untuk menemukan room spesifik secara instan:
+*   **Cari PIN**: Ketikkan 6 digit angka PIN jika seorang guru menelepon mengeluhkan room-nya tidak dapat dimasuki siswa.
+*   **Filter Berdasarkan Game**: Saring tampilan hanya untuk melihat sesi game tertentu.
+*   **Filter Status**: Tampilkan hanya sesi yang sedang berlangsung (`IN_GAME`) atau yang menunggu di lobi (`WAITING`).
+
+---
+
+## 3. Prosedur Penutupan Darurat Room (*Force Close*)
+
+Terkadang, sebuah room mengalami gangguan koneksi, host keluar tanpa menutup room (*abandoned room*), atau terjadi pelanggaran tata tertib di dalam ruang obrolan:
+
+<Callout type="error">
+  Tindakan penutupan paksa (*Force Close*) bersifat permanen dan seketika memutuskan seluruh pemain dari room terkait. Gunakan tindakan ini hanya dalam situasi darurat operasional.
+</Callout>
+
+<Steps>
+  <Step>
+    ### Temukan Sesi Bermasalah
+    Cari baris room menggunakan 6 digit Game PIN atau nama host.
+  </Step>
+
+  <Step>
+    ### Klik Tombol Tindakan Darurat
+    Klik tombol **Hentikan Sesi (Force Close)** berlambang kotak merah di kolom aksi.
+  </Step>
+
+  <Step>
+    ### Masukkan Alasan Penutupan
+    Ketikkan alasan resmi penutupan (misal: *"Host meninggalkan sesi"* atau *"Gangguan jaringan guru"*). Catatan ini akan disimpan di log audit.
+  </Step>
+
+  <Step>
+    ### Konfirmasi Penutupan
+    Tekan tombol **Ya, Tutup Room Sekarang**. Seluruh koneksi WebSocket pemain akan diputus dan status room berubah menjadi `TERMINATED`.
+  </Step>
+</Steps>
+

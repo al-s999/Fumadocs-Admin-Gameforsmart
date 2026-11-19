@@ -1,44 +1,76 @@
 ---
 title: Halaman Dashboard Utama
-description: Panduan memahami metrik ringkasan platform, grafik pertumbuhan pengguna, performa game, dan umpan aktivitas terkini.
+description: Panduan memahami metrik ringkasan platform, grafik pertumbuhan pengguna, statistik performa game, dan umpan aktivitas terkini.
 ---
 
 # Halaman Dashboard Utama
 
-Halaman **Dashboard** (`/dashboard`) adalah beranda operasional yang menyajikan indikator performa utama platform dan aktivitas pengguna GameForSmart secara waktu nyata (*real-time*).
+Halaman **Dashboard** (`/dashboard`) adalah beranda operasional yang pertama kali Anda lihat setelah berhasil login. Halaman ini dirancang untuk memberikan gambaran menyeluruh mengenai kesehatan sistem dan aktivitas pemain GameForSmart secara waktu nyata (*real-time*).
 
 ---
 
-## 1. Kartu Ringkasan Utama (KPI)
+## 1. Empat Kartu Ringkasan Utama (KPI Grid)
 
-*   **Total Pengguna**: Jumlah akun pemain, guru, dan staf yang terdaftar beserta persentase kenaikan bulanan.
-*   **Sesi Game Aktif**: Jumlah room multiplayer yang sedang berlangsung saat ini.
-*   **Sesi Selesai**: Total permainan yang telah selesai diselenggarakan hingga pengumuman pemenang.
-*   **Kuis Menunggu Review**: Antrean paket kuis komunitas yang menunggu verifikasi staf kurasi.
+Di bagian teratas dashboard, terdapat empat kartu indikator kinerja utama (*Key Performance Indicators*):
+
+<Cards>
+  <Card 
+    title="Total Pengguna" 
+    description="Akumulasi seluruh akun pemain, guru, dan staf yang terdaftar di platform. Memperlihatkan persentase kenaikan dibanding bulan sebelumnya."
+  />
+  <Card 
+    title="Sesi Game Aktif" 
+    description="Jumlah room permainan multiplayer yang saat ini sedang dibuka atau sedang berlangsung di seluruh penjuru ekosistem game."
+  />
+  <Card 
+    title="Sesi Selesai" 
+    description="Total sesi room kuis dan permainan yang telah berhasil dituntaskan hingga babak pengumuman skor pemenang."
+  />
+  <Card 
+    title="Kuis Menunggu Review" 
+    description="Jumlah kuis kiriman komunitas/guru yang menunggu peninjauan staf kurasi sebelum layak ditayangkan ke direktori publik."
+  />
+</Cards>
+
+<Callout type="info">
+  Indikator angka pada kartu ringkasan diperbarui secara otomatis setiap kali ada aktivitas baru tanpa Anda perlu menyegarkan (*refresh*) halaman peramban secara manual.
+</Callout>
 
 ---
 
-## 2. Grafik Pertumbuhan Pengguna
+## 2. Grafik Tren Pertumbuhan Pengguna
 
-Grafik interaktif memvisualisasikan pendaftaran pengguna baru:
-*   **Filter Waktu**: Pilih rentang 7 hari terakhir, 30 hari terakhir, atau 1 tahun.
-*   **Detail Data**: Arahkan kursor pada titik grafik untuk melihat jumlah pendaftaran pada tanggal tertentu.
+Di bawah kartu ringkasan, tersaji grafik garis interaktif yang memvisualisasikan dinamika pendaftaran pengguna baru:
 
----
-
-## 3. Ringkasan Popularitas Game
-
-Tabel menyajikan performa 7 game resmi:
-*   **Nama Game**: Judul game yang terdaftar.
-*   **Sesi Berjalan**: Banyaknya room aktif untuk game terkait.
-*   **Total Pemain**: Akumulasi pemain yang terhubung ke game tersebut.
-*   **Status Game**: Indikator ketersediaan `Online` (Hijau) atau `Maintenance` (Kuning).
+*   **Pilihan Rentang Waktu**: Anda dapat memilih filter waktu di sudut kanan atas grafik:
+    *   **7 Hari Terakhir**: Untuk memantau tren mingguan atau dampak promosi acara sekolah.
+    *   **30 Hari Terakhir**: Untuk melihat pertumbuhan pendaftaran bulanan.
+    *   **1 Tahun**: Untuk evaluasi adopsi platform jangka panjang.
+*   **Sorotan Titik Data (*Tooltip*)**: Arahkan kursor tetikus ke titik grafik mana pun untuk membaca angka pasti pendaftaran pada tanggal tersebut.
 
 ---
 
-## 4. Umpan Aktivitas Terkini
+## 3. Tabel Ringkasan Popularitas Game
 
-Panel log di sisi kanan menyajikan 10 aksi operasional terbaru:
-*   Persetujuan atau penolakan kuis oleh staf kurator.
-*   Laporan pelanggaran baru yang dilaporkan pemain.
-*   Status transaksi pendaftaran turnamen yang baru diselesaikan.
+Bagian ini menyajikan urutan game resmi berdasarkan intensitas pemakaian oleh pengguna:
+
+| Kolom Tabel | Keterangan Data | Tindakan yang Disarankan |
+| :--- | :--- | :--- |
+| **Nama Game** | Judul game resmi (*SpaceQuiz, MemoryQuiz, dll.*) | Klik nama game untuk menuju halaman katalog game. |
+| **Sesi Berjalan** | Jumlah room yang sedang aktif saat ini | Waspadai jika ada lonjakan tajam pada jam sekolah. |
+| **Total Pemain** | Akumulasi pemain yang tergabung dalam room | Menilai antusiasme pemain terhadap mekanik game terkait. |
+| **Status Game** | Indikator `Online` (Hijau) atau `Maintenance` (Kuning) | Pastikan game utama selalu berstatus `Online`. |
+
+---
+
+## 4. Umpan Aktivitas Terkini (*Recent Activity Feed*)
+
+Di sisi kanan dashboard, terdapat panel log yang menampilkan 10 tindakan operasional terbaru:
+*   Melihat staf admin mana yang baru saja menyetujui kuis.
+*   Melihat laporan pelanggaran baru yang masuk dari pemain.
+*   Melihat status pendaftaran turnamen yang baru lunas.
+
+<Callout type="tip">
+  Jika Anda bertugas sebagai admin pembuka giliran kerja (*shift*), selalu luangkan waktu 2 menit untuk memeriksa umpan aktivitas terkini agar mengetahui apa saja yang telah diselesaikan oleh rekan kerja pada giliran sebelumnya.
+</Callout>
+

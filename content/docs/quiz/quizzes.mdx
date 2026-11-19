@@ -1,7 +1,7 @@
 ---
 title: Quizzes
 description: Panduan mencari kuis, menyusun paket soal kuis baru, menetapkan pilihan jawaban, batas waktu, dan visibilitas paket.
----
+--- 
 
 # Quizzes
 
@@ -9,21 +9,53 @@ Halaman **Quizzes** (`/quizzes`) adalah gudang pustaka utama seluruh paket soal 
 
 ---
 
-## 1. Pencarian & Filter Kuis
+## 1. Menjelajah & Menyaring Pustaka Kuis
 
-*   **Kotak Pencarian**: Cari berdasarkan judul kuis, nama pembuat, atau topik materi.
-*   **Filter Kategori**: Saring kuis berdasarkan mata pelajaran atau jenjang kelas.
-*   **Filter Visibilitas**:
-    *   `Publik`: Dapat diakses dan dimainkan oleh seluruh pengguna platform.
-    *   `Privat`: Hanya dapat dilihat dan dimainkan oleh pemilik kuis.
-    *   `Menunggu Review`: Masih dalam antrean kurasi staf admin.
+Gunakan bilah alat di atas tabel untuk menemukan kuis secara efisien:
+*   **Kotak Pencarian**: Cari berdasarkan judul kuis, nama pembuat (*creator*), atau kata kunci topik materi.
+*   **Filter Kategori**: Pilih bidang studi tertentu (misal: *Matematika Kelas 6*).
+*   **Filter Status Visibilitas**:
+    *   `Publik`: Dapat dicari dan dimainkan oleh seluruh host dan guru di platform.
+    *   `Privat`: Hanya dapat dilihat dan dimainkan oleh pembuat kuis itu sendiri.
+    *   `Menunggu Review`: Masih dalam antrean kurasi staf.
 
 ---
 
-## 2. Membuat Paket Kuis Baru
+## 2. Alur Pembuatan Paket Kuis Baru
 
-1.  Klik tombol **+ Buat Kuis Baru** di sudut kanan atas.
-2.  Isi informasi dasar: **Judul Kuis**, **Deskripsi Materi**, **Kategori**, dan unggah **Gambar Sampul**.
-3.  Klik **+ Tambah Soal**: Ketikkan pertanyaan, tentukan **Batas Waktu Menjawab** (detik), dan **Bobot Nilai**.
-4.  Masukkan 4 opsi pilihan jawaban dan tandai radio button pada **Kunci Jawaban Benar**.
-5.  Pilih status visibilitas (`Publik` atau `Privat`), lalu klik **Simpan Paket Kuis**.
+Untuk menambahkan kuis baru ke dalam sistem:
+
+<Steps>
+  <Step>
+    ### Buka Formulir Kuis Baru
+    Klik tombol **+ Buat Kuis Baru** di sudut kanan atas halaman.
+  </Step>
+
+  <Step>
+    ### Isi Informasi Dasar Kuis
+    *   **Judul Kuis**: Berikan nama yang jelas dan spesifik (contoh: *"Tata Surya & Planet Kerdil - Tingkat SMP"*).
+    *   **Deskripsi**: Tuliskan ringkasan materi atau tujuan pembelajaran kuis.
+    *   **Kategori**: Pilih bidang studi yang relevan.
+    *   **Gambar Sampul**: Unggah ilustrasi bertema pendidikan (rasio 16:9, format JPG/PNG/WebP).
+  </Step>
+
+  <Step>
+    ### Tambahkan Butir Soal (*Questions*)
+    Klik tombol **+ Tambah Soal**:
+    *   Ketikkan teks pertanyaan pada kotak teks utama. Anda juga dapat menambahkan gambar ilustrasi pendukung soal jika diperlukan.
+    *   Tentukan **Batas Waktu Menjawab**: Pilih durasi waktu per soal (misal: 15 detik, 30 detik, atau 60 detik).
+    *   Tentukan **Bobot Nilai**: Poin standar (misal: 1000 poin).
+  </Step>
+
+  <Step>
+    ### Susun Opsi Pilihan Jawaban
+    *   Masukkan 4 pilihan opsi jawaban (Opsi A, B, C, dan D).
+    *   Klik lingkaran radio pada opsi yang menjadi **Kunci Jawaban Benar** (lingkaran akan berubah warna menjadi hijau).
+  </Step>
+
+  <Step>
+    ### Simpan & Terbitkan
+    Pilih visibilitas kuis (`Publik` atau `Privat`), lalu tekan tombol **Simpan Paket Kuis**. Kuis resmi yang dibuat oleh admin akan langsung berstatus *Publik* tanpa perlu melewati proses kurasi.
+  </Step>
+</Steps>
+

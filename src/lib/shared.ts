@@ -4,7 +4,7 @@ export const docsImageRoute = '/og/docs';
 export const docsContentRoute = '/llms.mdx/docs';
 
 export const gitConfig = {
-  user: 'gameforsmart',
-  repo: 'admin_dashboard',
+  user: 'al-s999',
+  repo: 'Fumadocs-Admin-Gameforsmart',
   branch: 'main',
 };

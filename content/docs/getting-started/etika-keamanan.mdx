@@ -1,42 +1,75 @@
 ---
 title: Keamanan Akun & Etika Data
-description: Pedoman kerahasiaan kredensial staf, perlindungan data pribadi pengguna, dan akuntabilitas jejak audit.
+description: Pedoman operasional penjagaan kerahasiaan kredensial staf, perlindungan data pribadi pemain dan siswa, serta akuntabilitas jejak audit.
 ---
 
 # Keamanan Akun & Etika Data
 
-Staf administrator GameForSmart berkewajiban menjaga kerahasiaan kredensial akses dan melindungi data pribadi seluruh pengguna platform.
+Sebagai staf administrator GameForSmart, Anda memegang hak istimewa yang memungkinkan Anda melihat informasi sensitif pengguna, memoderasi konten kuis, dan mengelola jalannya turnamen. Bersama hak istimewa tersebut, melekat tanggung jawab etis dan hukum untuk menjaga integritas data serta keamanan sistem.
 
 ---
 
-## 1. Kerahasiaan Kredensial Staf
+## 1. Pedoman Kerahasiaan Kredensial Staf
 
-*   **Dilarang Berbagi Akun**: Akun admin bersifat pribadi. Dilarang meminjamkan username, kata sandi, atau kode 2FA kepada siapa pun.
-*   **Kata Sandi Kuat**: Gunakan kombinasi huruf besar, kecil, angka, dan simbol. Perbarui sandi secara berkala.
-*   **Proteksi 2FA**: Pasang autentikator pada perangkat pribadi yang terlindungi sandi atau biometrik.
-*   **Kunci Layar**: Kunci layar komputer (*Lock Screen*) saat meninggalkan meja kerja.
+Akun staf administrator bersifat **pribadi dan tidak boleh dipindahtangankan**. Seluruh staf wajib mematuhi aturan berikut:
 
----
+*   **Larangan Berbagi Akun**: Dilarang keras membagikan alamat surel, kata sandi, maupun kode OTP 2FA Anda kepada rekan kerja, atasan, atau pihak luar mana pun dengan alasan apa pun.
+*   **Kekuatan Kata Sandi**: Buat kata sandi yang unik, sulit ditebak, dan tidak digunakan pada layanan pribadi lain (gunakan kombinasi huruf besar, huruf kecil, angka, dan tanda baca). Perbarui kata sandi secara berkala.
+*   **Perlindungan Otentikasi 2 Langkah (2FA)**: Pastikan aplikasi autentikator terpasang pada perangkat ponsel pribadi yang aman dan dilindungi kunci biometrik atau PIN.
+*   **Kunci Layar Saat Ditinggalkan**: Selalu kunci komputer Anda (*Windows + L* atau *Cmd + Ctrl + Q*) apabila Anda meninggalkan meja kerja sejenak.
 
-## 2. Perlindungan Privasi Pengguna
-
-*   **Data Rahasia**: Alamat email, nomor telepon, asal sekolah, dan riwayat transaksi pengguna bersifat rahasia.
-*   **Larangan Penyebaran**: Dilarang mengambil tangkapan layar yang memuat data pengguna untuk konsumsi pribadi atau media sosial.
-*   **Akses Terbatas Tugas**: Data pengguna hanya boleh diakses untuk menyelesaikan tiket bantuan, verifikasi turnamen, atau investigasi pelanggaran.
+<Callout type="error">
+  Setiap aktivitas yang terjadi di bawah akun Anda adalah **tanggung jawab penuh pemilik akun**. Meminjamkan akun kepada orang lain dapat mengakibatkan sanksi administratif dan pencabutan hak akses permanen.
+</Callout>
 
 ---
 
-## 3. Jejak Audit (*Audit Trail*)
+## 2. Perlindungan Data Pribadi Pengguna (*Privacy Policy*)
 
-Setiap aktivitas di dashboard admin dicatat secara otomatis:
-*   **Identitas & Waktu**: Mencatat nama admin, waktu presisi, alamat IP, dan perangkat yang digunakan.
-*   **Riwayat Perubahan**: Menyimpan data sebelum dan sesudah perubahan dilakukan.
-*   **Integritas Data**: Log audit tidak dapat diubah atau dihapus oleh staf operasional.
+Sistem GameForSmart digunakan oleh ribuan peserta didik, guru sekolah, dan masyarakat umum. Sebagai staf operasional, Anda wajib melindungi privasi pengguna:
+
+1.  **Kerahasiaan Identitas**: Data pengguna seperti alamat surel, nomor WhatsApp/telepon, nama asli, asal sekolah, dan riwayat transaksi adalah **data rahasia**.
+2.  **Larangan Penyebaran Informasi**: Dilarang mengambil tangkapan layar (*screenshot*) yang memuat data pribadi pengguna untuk diunggah ke media sosial, grup perpesanan pribadi, atau dibagikan ke pihak ketiga yang tidak berkepentingan.
+3.  **Penggunaan Sesuai Tugas**: Akses ke data pengguna hanya dibenarkan semata-mata untuk menyelesaikan penanganan tiket bantuan, verifikasi peserta turnamen, atau penindakan laporan kecurangan.
 
 ---
 
-## 4. Penanganan Situasi Darurat
+## 3. Akuntabilitas Rekam Jejak Audit (*Audit Trail*)
 
-*   **Perangkat Hilang / Dicuri**: Segera hubungi Superadmin untuk mencabut sesi aktif (*Revoke Session*) dan menonaktifkan akun sementara.
-*   **Dugaan Akun Diretas**: Lakukan *Logout* dari semua perangkat, segera ubah kata sandi, dan laporkan ke Superadmin.
-*   **Salah Hapus Data**: Periksa menu **Sampah** (`/trash-bin`) untuk memulihkan data sebelum melewati batas retensi 30 hari.
+Setiap aksi operasional yang dilakukan staf tercatat secara otomatis di dalam sistem **Log Audit** (*Audit Log*). Informasi yang dicatat mencakup:
+
+*   **Identitas Pelaksana**: Nama pengguna dan alamat surel staf yang melakukan tindakan.
+*   **Stempel Waktu**: Jam, menit, dan detik tindakan dilakukan dengan presisi tinggi.
+*   **Alamat IP & Perangkat**: Alamat protokol internet dan tipe peramban yang digunakan.
+*   **Rincian Perubahan Data**: Catatan sebelum dan sesudah data diubah (misalnya: kuis mana yang disetujui, akun mana yang ditangguhkan, atau nilai mana yang diubah).
+
+<Callout type="info">
+  Sistem jejak audit tidak dapat dimanipulasi atau dihapus oleh staf operasional biasa. Pencatatan ini berfungsi sebagai perlindungan bagi staf bahwa seluruh tindakan operasional dijalankan sesuai SOP resmi.
+</Callout>
+
+---
+
+## 4. Prosedur Darurat Penanganan Insiden
+
+Apabila Anda mengalami situasi darurat berikut, segera lakukan tindakan mitigasi:
+
+<Tabs items={['Perangkat Hilang / Dicuri', 'Dugaan Akun Diretas', 'Salah Mengubah Data']}>
+  <Tab value="Perangkat Hilang / Dicuri">
+    1. Segera hubungi **Superadmin** melalui saluran komunikasi darurat (telepon/pesan instan atasan).
+    2. Minta Superadmin untuk mencabut sesi aktif (*Revoke Session*) dan menonaktifkan akun admin Anda sementara waktu.
+    3. Setelah perangkat baru disiapkan, lakukan reset kata sandi dan setel ulang konfigurasi 2FA.
+  </Tab>
+
+  <Tab value="Dugaan Akun Diretas">
+    1. Jika Anda menerima notifikasi login dari lokasi atau perangkat yang tidak Anda kenali, segera lakukan **Logout dari Semua Perangkat**.
+    2. Masuk kembali dan ubah kata sandi rahasia Anda seketika itu juga.
+    3. Laporkan insiden ini kepada Superadmin agar log audit dapat diperiksa untuk memastikan tidak ada data yang disalahgunakan.
+  </Tab>
+
+  <Tab value="Salah Mengubah Data">
+    1. Jangan panik dan jangan mencoba menutupi kesalahan dengan mengubah data lain secara sembarangan.
+    2. Periksa menu **Tempat Sampah (*Trash Bin*)** jika Anda tidak sengaja menghapus entitas kuis atau grup; data masih dapat dipulihkan dalam batas waktu tertentu.
+    3. Laporkan kepada koordinator tim dengan menyebutkan ID data yang terdampak agar dapat dibantu pemulihannya.
+  </Tab>
+</Tabs>
+
