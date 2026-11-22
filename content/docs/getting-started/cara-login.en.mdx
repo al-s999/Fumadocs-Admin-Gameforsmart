@@ -1,0 +1,84 @@
+---
+title: How to Login
+description: Step-by-step guide on how to log in to the admin dashboard, account security protection, and secure session logout.
+---
+
+# How to Login
+
+The GameForSmart Admin Dashboard enforces strict security standards to protect the game ecosystem and all user data. This page explains official procedures for logging in to an admin account, account protection mechanisms, and how to end an operational work session safely.
+
+---
+
+## 1. Official Website Address
+
+Ensure that you only access the admin dashboard through the official web address provided by the institution:
+
+<Callout type="warn">
+  Always check your browser address bar. Ensure it begins with the `https://` protocol and has the official domain. Never input admin credentials on third-party websites or suspicious phishing links.
+</Callout>
+
+---
+
+## 2. Login Steps
+
+Follow the steps below to access your operational work area:
+
+<Steps>
+  <Step>
+    ### Open the Login Page
+    Direct your web browser to the official admin login URL. You will see a sign-in form with the **GameForSmart** logo.
+  </Step>
+
+  <Step>
+    ### Enter Account Credentials
+    Type the **Email Address** or **Username** registered by the Superadmin in the first input field.
+  </Step>
+
+  <Step>
+    ### Enter Password
+    Type your confidential password in the second field. Ensure *Caps Lock* on your keyboard is not accidentally active.
+  </Step>
+
+  <Step>
+    ### Complete reCAPTCHA Verification
+    Check the reCAPTCHA box to verify that you are a human operator and not an automated bot.
+  </Step>
+
+  <Step>
+    ### Click the Login Button
+    Once all data is entered correctly, click **Login**. The system will verify your role and redirect you to the appropriate workspace:
+    *   **Superadmin**: Directed directly to the main summary `/dashboard`.
+    *   **Admin Billing**: Directed to the financial dashboard `/billing/dashboard`.
+    *   **Admin Support**: Directed to the ticket handling dashboard `/support/dashboard`.
+  </Step>
+</Steps>
+
+---
+
+## 3. Login Attempt Protection System
+
+To protect admin accounts from brute-force intrusions, the system features tiered security safeguards:
+
+*   **Failed Input Limit (3 Attempts)**: If you enter an incorrect password **3 consecutive times**, your account and browser IP address will automatically be locked out for a cooldown duration.
+*   **Server Attack Prevention**: Repeated failed sign-in attempts within a 15-minute window are temporarily blocked by the server firewall.
+*   **Automated Audit Logging**: Every login attempt, both successful and failed, is logged automatically into the *Audit Trail* alongside IP address, timestamp, and device type.
+
+<Callout type="error">
+  If the screen displays **"Too many login attempts"**, do not attempt to log in again. Immediately contact the **Super Admin** to verify your identity and unlock your account.
+</Callout>
+
+---
+
+## 4. How to Logout
+
+After finishing your operational work shift or when stepping away from your computer:
+
+1.  Move your cursor to the top right corner of the screen, and click your **Profile Menu**.
+2.  Select **Logout** from the menu options.
+3.  A confirmation dialog will appear to ensure you do not exit accidentally. Click **Yes, Logout**.
+4.  The authentication token session will be cleared automatically and the page will return to the login screen.
+
+<Callout type="tip">
+  Never leave your workstation with the admin dashboard left open unattended. Always cultivate the habit of clicking **Logout** whenever stepping away from your device.
+</Callout>
+

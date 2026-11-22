@@ -1,0 +1,62 @@
+---
+title: Roles and Permissions
+description: Explanation of role division and operational access permission boundaries.
+---
+
+# Roles and Permissions
+
+GameForSmart Admin applies Role-Based Access Control (RBAC). This system ensures each staff member can only access features and data matching their specific operational responsibilities.
+
+---
+
+## 1. Roles
+
+Within the GameForSmart ecosystem, staff accounts are divided into 4 primary authorization categories:
+
+### A. Superadmin (`super_admin`)
+*   **Role**: The system's highest operational authority.
+*   **Responsibilities**:
+    *   Configure global application settings and toggle Maintenance Mode.
+    *   Create new staff accounts and assign role levels.
+    *   Restore data or perform permanent deletions from the Trash Bin.
+    *   Access all modules without restrictions.
+
+### B. Service & Operations Admin (`admin_support`)
+*   **Role**: Administrator tasked with quiz content monitoring, community moderation, and user assistance.
+*   **Responsibilities**:
+    *   Review, approve, or reject quizzes submitted by teachers and the community.
+    *   Supervise active game rooms and handle problematic rooms.
+    *   Moderate user accounts, address improper usernames, and follow up on violation reports.
+    *   Respond to user inquiries and complaint tickets through the Help Center.
+
+### C. Finance & Billing Admin (`admin_billing`)
+*   **Role**: Administrator tasked with transactions and payment reconciliations.
+*   **Responsibilities**:
+    *   Monitor tournament payment transaction statuses through the Xendit payment gateway.
+    *   Verify tournament registration payment receipts when automated verification faces anomalies.
+    *   Review cash flow reconciliations and refund history.
+    *   Monitor the development of paid subscription packages.
+
+---
+
+## 2. Permissions by Role
+
+The following table summarizes permissions for each role across the main navigation modules:
+
+| Main Menu Group | Superadmin | Admin Support | Admin Billing |
+| :--- | :---: | :---: | :---: |
+| **Dashboard** | Full | Full | Billing Summary |
+| **Game** | Full | Full | View Only |
+| **Quiz** | Full | Full | - |
+| **Kompetisi** | Full | Full | View Fees Only |
+| **Blog** | Full | Full | - |
+| **Support & Reports** | Full | Full | - |
+| **Billing & Transactions** | Full | Status Only | Full |
+| **Master Data** | Full | View Only | - |
+| **Administrator & Users** | Full | Profile Moderation | - |
+| **Settings & Trash Bin** | Full | - | - |
+
+*Symbol Legend:*
+*   **Full**: Entitled to view, create, edit, and move items to Trash Bin.
+*   **View Only**: Can only read data without edit/delete actions.
+

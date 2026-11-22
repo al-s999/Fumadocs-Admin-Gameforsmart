@@ -61,10 +61,10 @@ Untuk melindungi akun admin dari upaya penerobosan paksa oleh pihak luar, sistem
 
 *   **Batas Kesalahan Input (3 Kali)**: Jika Anda memasukkan kata sandi yang salah sebanyak **3 kali berturut-turut**, akun dan alamat IP peramban Anda akan terkunci (*locked out*) secara otomatis selama masa *cooldown*.
 *   **Pencegahan Serangan Server**: Percobaan masuk yang salah berulang dalam rentang 15 menit akan diblokir sementara oleh firewall server.
-*   **Pencatatan Log Otomatis**: Setiap percobaan masuk—baik yang berhasil maupun yang gagal—otomatis dicatat ke dalam *Audit Trail* bersama alamat IP, waktu akses, dan jenis perangkat yang digunakan.
+*   **Pencatatan Log Otomatis**: Setiap percobaan masuk, baik yang berhasil maupun yang gagal, otomatis dicatat ke dalam *Audit Trail* bersama alamat IP, waktu akses, dan jenis perangkat yang digunakan.
 
 <Callout type="error">
-  Jika layar menampilkan pesan **"Terlalu banyak percobaan login"** atau status terkunci, jangan mencoba menebak kembali. Segera hubungi **Superadmin** instansi Anda untuk memverifikasi identitas dan membuka blokir akun.
+  Jika layar menampilkan pesan **"Terlalu banyak percobaan login"**, jangan mencoba login lagi. Segera hubungi **Super Admin** untuk memverifikasi identitas dan membuka blokir akun.
 </Callout>
 
 ---
@@ -73,11 +73,11 @@ Untuk melindungi akun admin dari upaya penerobosan paksa oleh pihak luar, sistem
 
 Setelah selesai menjalankan jam tugas operasional atau ketika hendak meninggalkan perangkat komputer:
 
-1.  Arahkan kursor ke sudut kanan atas layar, lalu klik **Menu Profil (Avatar)** Anda.
-2.  Pilih opsi **Keluar** (*Logout*) dari daftar menu drop-down.
+1.  Arahkan kursor ke sudut kanan atas layar, lalu klik **Menu Profil** Anda.
+2.  Pilih opsi **Keluar** (*Logout*) dari daftar menu.
 3.  Kotak dialog konfirmasi akan muncul untuk memastikan Anda tidak keluar secara tidak sengaja. Klik tombol **Ya, Keluar**.
-4.  Sesi autentikasi aman (*secure session token*) pada peramban akan dihapus secara otomatis dan halaman kembali ke formulir login awal.
+4.  Sesi login (*auth token session*) akan dihapus secara otomatis dan halaman kembali ke halaman login.
 
 <Callout type="tip">
-  Jangan pernah meninggalkan komputer dalam kondisi dashboard admin terbuka tanpa pengawasan (*unattended workstation*). Biasakan selalu menekan tombol **Logout** saat jam kerja berakhir.
+  Jangan pernah meninggalkan komputer dalam kondisi dashboard admin terbuka tanpa pengawasan. Biasakan selalu menekan tombol **Logout** saat mau meninggalkan perangkat.
 </Callout>

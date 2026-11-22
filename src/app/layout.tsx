@@ -1,7 +1,5 @@
-import { RootProvider } from 'fumadocs-ui/provider/next';
+import { AppProvider } from '@/components/provider';
 import './global.css';
-
-import { locales } from '@/lib/i18n';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
@@ -20,11 +18,11 @@ export const metadata: Metadata = {
   description: 'Pusat panduan operasional terpadu staf administrator GameForSmart untuk mengelola kuis, game edukasi, turnamen sekolah, pusat bantuan, transaksi, dan pengaturan sistem.',
 };
 
-export default function Layout({ children }: LayoutProps<'/'>) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id" className={inter.className} suppressHydrationWarning>
       <body className="flex flex-col min-h-screen">
-        <RootProvider i18n={{ locales }}>{children}</RootProvider>
+        <AppProvider>{children}</AppProvider>
       </body>
     </html>
   );

@@ -2,57 +2,100 @@ import { getPageImage, getPageMarkdownUrl, source } from '@/lib/source';
 import {
   DocsBody,
   DocsDescription,
-  DocsPage,
   DocsTitle,
-  MarkdownCopyButton,
-  ViewOptionsPopover,
 } from 'fumadocs-ui/layouts/docs/page';
 import { notFound, redirect } from 'next/navigation';
 import { getMDXComponents } from '@/components/mdx';
 import type { Metadata } from 'next';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
-import { gitConfig } from '@/lib/shared';
+import {
+  LocalizedDocsPage,
+  LocalizedDocTitle,
+  LocalizedDocDescription,
+  LocalizedDocActions,
+  LocalizedDocBody,
+} from '@/components/doc-content';
 
-export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
+export default async function Page(props: {
+  params: Promise<{ slug?: string[] }>;
+}) {
   const params = await props.params;
   if (!params.slug || params.slug.length === 0) {
     redirect('/docs/getting-started');
   }
 
-  const page = source.getPage(params.slug);
-  if (!page) notFound();
+  const pageId = source.getPage(params.slug, 'id');
+  if (!pageId) notFound();
 
-  const MDX = page.data.body;
-  const markdownUrl = getPageMarkdownUrl(page).url;
+  const pageEn = source.getPage(params.slug, 'en');
+
+  const MDXId = pageId.data.body;
+  const MDXEn = pageEn?.data.body;
+
+  const markdownUrlId = getPageMarkdownUrl(pageId).url;
+  const markdownUrlEn = pageEn ? getPageMarkdownUrl(pageEn).url : markdownUrlId;
 
   return (
-    <DocsPage toc={page.data.toc} full={page.data.full}>
-      <DocsTitle>{page.data.title}</DocsTitle>
-      <DocsDescription className="mb-0">{page.data.description}</DocsDescription>
-      <div className="flex flex-row gap-2 items-center border-b pb-6">
-        <MarkdownCopyButton markdownUrl={markdownUrl} />
-        <ViewOptionsPopover
-          markdownUrl={markdownUrl}
-          githubUrl={`https://github.com/${gitConfig.user}/${gitConfig.repo}/blob/${gitConfig.branch}/content/docs/${page.path}`}
+    <LocalizedDocsPage
+      idToc={pageId.data.toc}
+      enToc={pageEn?.data.toc}
+      full={pageId.data.full}
+    >
+      <DocsTitle>
+        <LocalizedDocTitle idTitle={pageId.data.title} enTitle={pageEn?.data.title} />
+      </DocsTitle>
+      <DocsDescription className="mb-0">
+        <LocalizedDocDescription
+          idDescription={pageId.data.description}
+          enDescription={pageEn?.data.description}
         />
-      </div>
+      </DocsDescription>
+      <LocalizedDocActions
+        markdownUrlId={markdownUrlId}
+        markdownUrlEn={markdownUrlEn}
+        githubPathId={pageId.path}
+        githubPathEn={pageEn?.path}
+      />
       <DocsBody>
-        <MDX
-          components={getMDXComponents({
-            // this allows you to link to other pages with relative file paths
-            a: createRelativeLink(source, page),
-          })}
+        <LocalizedDocBody
+          idBody={
+            <MDXId
+              components={getMDXComponents({
+                a: createRelativeLink(source, pageId),
+              })}
+            />
+          }
+          enBody={
+            MDXEn ? (
+              <MDXEn
+                components={getMDXComponents({
+                  a: createRelativeLink(source, pageEn ?? pageId),
+                })}
+              />
+            ) : undefined
+          }
         />
       </DocsBody>
-    </DocsPage>
+    </LocalizedDocsPage>
   );
 }
 
 export async function generateStaticParams() {
-  return source.generateParams();
+  const slugs = new Set<string>();
+  const params: { slug: string[] }[] = [];
+  for (const page of source.getPages()) {
+    const key = page.slugs.join('/');
+    if (!slugs.has(key)) {
+      slugs.add(key);
+      params.push({ slug: page.slugs });
+    }
+  }
+  return params;
 }
 
-export async function generateMetadata(props: PageProps<'/docs/[[...slug]]'>): Promise<Metadata> {
+export async function generateMetadata(props: {
+  params: Promise<{ slug?: string[] }>;
+}): Promise<Metadata> {
   const params = await props.params;
   if (!params.slug || params.slug.length === 0) {
     return {
@@ -61,7 +104,7 @@ export async function generateMetadata(props: PageProps<'/docs/[[...slug]]'>): P
     };
   }
 
-  const page = source.getPage(params.slug);
+  const page = source.getPage(params.slug, 'id');
   if (!page) notFound();
 
   return {

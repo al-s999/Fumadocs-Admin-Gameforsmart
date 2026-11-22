@@ -1,6 +1,6 @@
 ---
 title: Pengaturan Sistem
-description: Panduan sakelar kendali mode pemeliharaan global (Maintenance Mode) saat jadwal perawatan server berkala.
+description: Panduan sakelar kendali pemeliharaan global (Maintenance) saat jadwal perawatan server berkala.
 ---
 
 # Pengaturan Sistem
@@ -9,22 +9,22 @@ Halaman **Pengaturan Sistem** (`/settings`) adalah pusat kendali tingkat tinggi 
 
 ---
 
-## 1. Sakelar Mode Pemeliharaan Global (*Global Maintenance Mode*)
+## 1. Pemeliharaan Global
 
-Di bagian utama halaman pengaturan, terdapat sakelar darurat **Maintenance Mode**:
+Di bagian utama halaman pengaturan, terdapat sakelar darurat **Maintenance**:
 
 <Callout type="warn">
-  Mengaktifkan mode pemeliharaan global akan **menutup akses seluruh aplikasi pengguna (*client app*)**. Pengguna yang membuka aplikasi akan diarahkan ke layar pengumuman pemeliharaan sistem. Dashboard Admin tetap dapat diakses khusus oleh staf berwenang.
+  Mengaktifkan pemeliharaan global akan **menutup akses seluruh aplikasi pengguna (*client app*)**. Pengguna yang membuka aplikasi akan diarahkan ke layar pengumuman pemeliharaan sistem. Dashboard Admin tetap dapat diakses khusus oleh staf berwenang.
 </Callout>
 
-### Kapan Mode Pemeliharaan Diaktifkan?
+### Kapan waktu Pemeliharaan?
 *   Ketika tim infrastruktur melakukan migrasi server atau pembaruan database skala besar.
 *   Ketika terjadi lonjakan beban lalu lintas data ekstrem yang memerlukan penataan ulang konfigurasi jaringan.
 *   Selama jadwal pemeliharaan terencana yang telah diumumkan kepada sekolah beberapa hari sebelumnya.
 
 ---
 
-## 2. Prosedur Mengaktifkan Mode Pemeliharaan
+## 2. Prosedur Pemeliharaan
 
 <Steps>
   <Step>
@@ -33,12 +33,12 @@ Di bagian utama halaman pengaturan, terdapat sakelar darurat **Maintenance Mode*
   </Step>
 
   <Step>
-    ### Geser Sakelar Maintenance Mode
+    ### switch ke Maintenance
     Aktifkan sakelar dari posisi `Off` menjadi `On`.
   </Step>
 
   <Step>
-    ### Tulis Pesan Pengumuman untuk Pengguna
+    ### Tulis Pesan Pengumuman
     *   **Judul Pengumuman**: Contoh: *"Pemeliharaan Sistem Terencana GameForSmart"*.
     *   **Pesan Penjelasan**: Contoh: *"Sistem sedang menjalani peningkatan performa server. Diperkirakan selesai pada pukul 03.00 WIB. Mohon maaf atas ketidaknyamanan ini."*
     *   **Perkiraan Waktu Selesai**: Atur jam dan tanggal perkiraan sistem kembali normal.
@@ -46,16 +46,16 @@ Di bagian utama halaman pengaturan, terdapat sakelar darurat **Maintenance Mode*
 
   <Step>
     ### Terapkan Perubahan
-    Klik tombol **Terapkan Mode Pemeliharaan**. Layar aplikasi publik seketika berganti menjadi layar siaga pemeliharaan.
+    Klik tombol **Terapkan Pemeliharaan**. Layar aplikasi publik seketika berganti menjadi layar siaga pemeliharaan.
   </Step>
 </Steps>
 
 ---
 
-## 3. Mengembalikan Sistem ke Status Normal
+## 3. Mengakhiri Pemeliharaan
 
 Setelah proses perbaikan teknis selesai dilakukan oleh tim pengembang:
 1.  Buka kembali `/settings`.
-2.  Geser sakelar **Maintenance Mode** kembali ke posisi `Off`.
+2.  Geser sakelar **Maintenance** kembali ke posisi `Off`.
 3.  Klik **Simpan**. Seluruh aplikasi pengguna akan kembali beroperasi normal secara seketika.
 

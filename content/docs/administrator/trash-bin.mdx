@@ -5,20 +5,20 @@ description: Panduan memulihkan kuis, turnamen, atau artikel yang tidak sengaja 
 
 # Sampah
 
-Halaman * Sampah** (`/trash-bin`) adalah fitur keselamatan (*safety net*) yang menampung seluruh entitas data yang telah dihapus oleh staf admin.
+Halaman *Sampah** (`/trash-bin`) adalah fitur keselamatan (*safety net*) yang menampung seluruh entitas data yang telah dihapus oleh staf admin.
 
 ---
 
-## 1. Mekanisme Penghapusan Bertahap (*Soft Delete*)
+## 1. Tahapan Penghapusan
 
 Sistem GameForSmart menerapkan prinsip perlindungan data tidak langsung hilang (*Soft Delete*):
 *   Ketika seorang staf mengklik tombol hapus pada kuis, artikel blog, atau grup komunitas, data tersebut **tidak langsung dimusnahkan** dari database.
-*   Data hanya diberi penanda terhapus (*timestamp deleted_at*) dan dipindahkan ke halaman * Sampah**.
+*   Data hanya diberi penanda terhapus (*timestamp deleted_at*) dan dipindahkan ke halaman *Sampah**.
 *   Hal ini memberi kesempatan pemulihan data jika terjadi salah klik atau kekeliruan staf operasional.
 
 ---
 
-## 2. Kategori Tab di Sampah
+## 2. Kategori Sampah
 
 Halaman `/trash-bin` dibagi menjadi beberapa tab entitas data:
 *   **Kuis (*Quizzes*)**: Paket kuis yang dihapus oleh guru atau staf.
@@ -29,18 +29,18 @@ Halaman `/trash-bin` dibagi menjadi beberapa tab entitas data:
 
 ---
 
-## 3. Langkah Memulihkan Data (*Restore*)
+## 3. Langkah Memulihkan Data
 
 Jika sebuah data kuis atau turnamen perlu diaktifkan kembali:
 
 <Steps>
   <Step>
-    ### Temukan Data di Sampah
+    ### Temukan Data
     Buka tab kategori yang sesuai di `/trash-bin`, lalu cari berdasarkan judul atau ID data.
   </Step>
 
   <Step>
-    ### Tekan Tombol Pulihkan (*Restore*)
+    ### Tekan Tombol Pulihkan
     Klik tombol hijau **Pulihkan Data (Restore)** di baris data terkait.
   </Step>
 
@@ -57,7 +57,7 @@ Jika sebuah data kuis atau turnamen perlu diaktifkan kembali:
 
 ---
 
-## 4. Penghapusan Permanen (*Hard Delete*)
+## 4. Penghapusan Permanen
 
 <Callout type="error">
   Tindakan **Hapus Permanen (Destroy)** akan memusnahkan data seutuhnya dari server secara permanen dan **tidak dapat dibatalkan atau dipulihkan kembali oleh siapa pun**.
