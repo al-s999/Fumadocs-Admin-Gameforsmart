@@ -1,56 +1,69 @@
 ---
-title: Transaksi Invoice
-description: Panduan melacak transaksi invoice, memeriksa status transfer peserta, dan prosedur sinkronisasi pembayaran manual.
+title: Daftar Transaksi
+description: Panduan melacak riwayat transaksi pembayaran kompetisi, menggunakan filter periode dan environment, serta memeriksa rincian biaya pada dialog detail.
 ---
 
-# Transaksi Invoice
+# Daftar Transaksi
 
-Halaman **Transaksi** (`/billing/transactions`) menyajikan buku besar seluruh tagihan transaksi elektronik yang diproses melalui gerbang pembayaran resmi GameForSmart, yaitu **Xendit**.
+Halaman **Transaksi** (`/billing/transactions`) menyajikan daftar lengkap seluruh transaksi pendaftaran kompetisi di GameForSmart, lengkap dengan ringkasan pendapatan, penyaringan multi-parameter, pengurutan tabel, dan rincian biaya per transaksi.
+
+<Callout type="info">
+  Secara *default*, halaman ini hanya menampilkan transaksi dengan *environment* **Production** (`midtrans_production`) agar laporan keuangan tidak tercampur dengan data pengujian (*Sandbox*) maupun arsip lama (*Legacy*).
+</Callout>
 
 ---
 
-## 1. Membaca Status Transaksi pada Tabel
+## 1. Kartu Ringkasan Statistik
 
-Tabel transaksi memuat parameter penting berikut:
+Di bagian atas terdapat **6 kartu statistik** yang nilainya mengikuti filter **Environment** dan **Periode** (tidak terpengaruh pencarian teks maupun filter status/metode agar metrik pendapatan tetap akurat):
 
-| Kolom | Keterangan Data | Penjelasan Status |
+### Baris 1 — Ringkasan Pendapatan (Transaksi `PAID`)
+*   **Gross Revenue**: Total nominal kotor yang dibayarkan peserta (`grossAmount`).
+*   **Total Fee**: Akumulasi biaya admin gateway dan pajak (`fee + feeTax`).
+*   **Net Income**: Total pendapatan bersih yang diterima (`netAmount`).
+
+### Baris 2 — Ringkasan Jumlah Transaksi
+*   **Transaksi Lunas**: Jumlah transaksi berstatus `PAID` beserta total keseluruhan transaksi pada periode tersebut.
+*   **Transaksi Pending**: Jumlah transaksi yang masih menunggu penyelesaian pembayaran.
+*   **Gagal / Kedaluwarsa**: Gabungan jumlah transaksi berstatus `FAILED` dan `EXPIRED`.
+
+---
+
+## 2. Pencarian, Filter & Pengurutan Tabel
+
+Admin dapat menyaring data tabel menggunakan kombinasi kontrol berikut:
+
+*   **Pencarian**: Cari berdasarkan **ID Transaksi**, **Nama Pelanggan**, **Email**, atau **Nama Kompetisi**.
+*   **Filter Status**: `ALL`, `PAID`, `PENDING`, `FAILED`, atau `EXPIRED`.
+*   **Filter Metode Pembayaran**: Menyaring berdasarkan metode yang tersedia di database (mis. QRIS, BCA VA, GoPay, dll.).
+*   **Filter Environment**: `Semua Environment`, `Production` (`midtrans_production`), `Sandbox` (`midtrans_sandbox`), atau `Legacy / Arsip` (`xendit`).
+*   **Filter Periode**: `Semua Waktu` (`all`), `Hari Ini` (`today`), `7 Hari Terakhir` (`7d`), `30 Hari Terakhir` (`30d`), atau `Bulan Ini` (`this_month`).
+*   **Tombol Reset**: Muncul otomatis saat ada filter aktif untuk mengembalikan pengaturan filter ke kondisi awal.
+
+Tabel mendukung **pengurutan (*sorting*)** pada kolom ID, Pelanggan, Kompetisi, Metode, Nominal Dasar, Nominal Kotor, Nominal Bersih, Status, dan Tanggal, dengan paginasi **5 baris per halaman**.
+
+---
+
+## 3. Arti Status Transaksi
+
+| Status | Warna Lencana | Keterangan |
 | :--- | :--- | :--- |
-| **ID Transaksi / Invoice** | Kode unik (contoh: `INV-202611-0042`) | Identitas resmi penagihan di Xendit. |
-| **Nama Pengguna / Siswa** | Nama pendaftar turnamen | Akun yang melakukan pemesanan tiket. |
-| **Turnamen Terkait** | Nama ajang kompetisi | Acara yang didaftarkan. |
-| **Nominal Tagihan** | Nilai rupiah (contoh: `Rp 50.000`) | Biaya registrasi yang wajib ditransfer. |
-| **Metode Pembayaran** | Saluran bayar (*BCA VA, QRIS, GoPay*) | Kanal yang dipilih pengguna. |
-| **Status Tagihan** | `PAID` (Hijau) / `PENDING` (Kuning) / `EXPIRED` (Abu-abu) | Status verifikasi pembayaran waktu nyata. |
-| **Batas Waktu** | Tanggal dan jam jatuh tempo | Masa aktif invoice (biasanya 24 jam). |
+| `PAID` | Hijau (*Emerald*) | Pembayaran berhasil diverifikasi dan peserta tercatat lunas pada kompetisi terkait. |
+| `PENDING` | Kuning (*Amber*) | Transaksi telah dibuat dan menunggu pembayaran dari peserta. |
+| `FAILED` | Merah | Pembayaran ditolak, dibatalkan, atau gagal diproses oleh gateway. |
+| `EXPIRED` | Abu-abu (*Slate*) | Batas waktu pembayaran telah habis sebelum dana diterima. |
 
 ---
 
-## 2. Arti Status Pembayaran
+## 4. Melihat Detail Transaksi
 
-*   **`PAID` (Lunas / Berhasil)**: Dana telah masuk ke rekening penampung Xendit. Sistem secara otomatis memasukkan akun peserta ke daftar **Whitelist Turnamen**.
-*   **`PENDING` (Menunggu Pembayaran)**: Pengguna telah memilih metode pembayaran dan menerima nomor rekening virtual (VA) atau kode QRIS, namun belum menyelesaikan transfer.
-*   **`EXPIRED` (Kedaluwarsa)**: Batas waktu transfer 24 jam telah habis tanpa ada dana yang masuk. Slot kursi turnamen otomatis dikembalikan ke kuota umum.
+Klik pada baris transaksi mana pun atau tekan tombol ikon **Mata (*View*)** di kolom aksi untuk membuka **Dialog Detail Transaksi**, yang menampilkan 13 informasi lengkap:
 
----
+*   **ID Transaksi**, **Nama Pelanggan**, **Email**, dan **Kompetisi**
+*   **Metode Pembayaran** & **Environment** (`Production`, `Sandbox`, atau `Legacy`)
+*   **Rincian Finansial**: Nominal Dasar (`amount`), Biaya Admin (`fee`), Pajak Biaya (`feeTax`), Nominal Kotor (`grossAmount`), dan Nominal Bersih (`netAmount`)
+*   **Status** dan **Tanggal Transaksi**
 
-## 3. Alur Verifikasi & Sinkronisasi Pembayaran Manual
-
-Terkadang, seorang peserta melaporkan bahwa saldo rekeningnya telah terdebet, namun status transaksi di dashboard masih berstatus `PENDING` karena gangguan jaringan perbankan:
-
-<Steps>
-  <Step>
-    ### Cari Transaksi Terkait
-    Ketikkan nama siswa atau nomor invoice pada kolom pencarian di `/billing/transactions`.
-  </Step>
-
-  <Step>
-    ### Periksa Bukti Transfer Pengguna
-    Buka tiket bantuan terkait dan pastikan bukti transfer memuat nominal yang tepat, tanggal transfer yang sesuai, serta nomor referensi bank yang valid.
-  </Step>
-
-  <Step>
-    ### Tekan Tombol "Sinkronkan Status Xendit" (*Check Status*)
-    Klik tombol **Cek Status Gateway** di baris transaksi. Sistem akan memanggil API Xendit secara seketika untuk menarik status mutasi mutakhir. Jika bank telah mengonfirmasi dana masuk, status seketika berubah menjadi `PAID` dan hak masuk turnamen peserta akan langsung aktif.
-  </Step>
-</Steps>
-
+<Callout type="tip">
+  Jika terdapat transaksi berstatus `PENDING`, `FAILED`, atau `EXPIRED` yang perlu dicek langsung ke Midtrans atau diselesaikan secara manual, gunakan halaman [Rekonsiliasi Billing](/docs/billing/reconciliation).
+</Callout>

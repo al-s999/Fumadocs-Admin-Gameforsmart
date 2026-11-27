@@ -1,33 +1,83 @@
 ---
 title: Metode Pembayaran
-description: Daftar pembayaran digital yang didukung melalui gateway Xendit, biaya penanganan transaksi, dan status integrasi.
+description: Mengelola saluran pembayaran aktif, kategori metode, skema biaya transaksi (flat, persen, combined, higher, dan PPN), serta kalkulator pratinjau biaya.
 ---
 
 # Metode Pembayaran
 
-Halaman **Metode Pembayaran** (`/billing/payment-methods`) menyajikan daftar seluruh kanal pembayaran elektronik yang dapat digunakan oleh peserta didik dan orang tua saat mendaftar turnamen GameForSmart.
+Halaman **Metode Pembayaran** (`/billing/payment-methods`) memungkinkan administrator untuk menambah, mengubah, mengaktifkan/menonaktifkan, dan mengatur skema biaya (*fee*) serta pajak (PPN) dari setiap saluran pembayaran yang tersedia di GameForSmart.
+
+<Callout type="info">
+  **Hak Akses Peran**:
+  *   Melihat daftar, mengubah status aktif (*toggle*), dan memperbarui biaya (*fee*): `super_admin`, `owner`, dan `admin_billing`.
+  *   Menambah, mengedit informasi metode, dan menghapus metode pembayaran: `super_admin` dan `admin_billing`.
+</Callout>
 
 ---
 
-## 1. Kanal Pembayaran yang Didukung
+## 1. Kategori Metode Pembayaran
 
-Melalui integrasi dengan Xendit, platform GameForSmart mendukung:
+Di bagian atas halaman terdapat kartu ringkasan yang menampilkan jumlah saluran aktif terhadap total saluran pada **6 kategori**:
 
-### A. Rekening Virtual Bank (*Virtual Account / VA*)
-*   **Bank yang Tersedia**: Bank Mandiri, Bank Central Asia (BCA), Bank Rakyat Indonesia (BRI), Bank Negara Indonesia (BNI), Bank Syariah Indonesia (BSI), dan Bank Permata.
-*   **Karakteristik**: Peserta menerima 16 digit nomor VA unik. Sistem melakukan verifikasi otomatis dalam hitungan 2–5 detik setelah transfer selesai.
-
-### B. Dompet Digital (*E-Wallet*)
-*   **Pilihan Dompet**: GoPay, OVO, Dana, ShopeePay, dan LinkAja.
-*   **Karakteristik**: Pengguna diarahkan langsung ke aplikasi dompet digital pada ponsel atau memindai kode QR dinamis.
-
-### C. Kode QR Standar Indonesia (*QRIS*)
-*   **Karakteristik**: Dapat dipindai menggunakan aplikasi perbankan seluler (*m-Banking*) atau dompet digital apa pun di Indonesia. Menjadi metode pembayaran paling populer bagi peserta turnamen.
+| Kode Kategori | Keterangan | Contoh Saluran |
+| :--- | :--- | :--- |
+| `VA` | Virtual Account | BCA VA, Mandiri VA, BRI VA, BNI VA |
+| `QR` | QR Code / QRIS | QRIS |
+| `EWALLET` | Dompet Digital | GoPay, OVO, DANA, ShopeePay |
+| `RETAIL` | Gerai Retail | Alfamart, Indomaret |
+| `CARD` | Kartu Kredit / Debit | Visa, Mastercard |
+| `DIRECT_DEBIT` | Debit Langsung | KlikBCA, Octo Clicks |
 
 ---
 
-## 2. Pemantauan Status Saluran Pembayaran
+## 2. Skema Biaya (*Fee*) & Pajak
 
-Di halaman ini, staf admin keuangan dapat memantau status operasional masing-masing bank:
-*   Jika salah satu bank mitra sedang menjalani pemeliharaan berkala (*downtime maintenance*), indikator status bank tersebut akan berubah menjadi kuning, dan sistem otomatis merekomendasikan saluran pembayaran alternatif kepada pengguna.
+Setiap metode pembayaran memiliki konfigurasi biaya pada tabel `payment_fees` yang mendukung empat tipe perhitungan:
 
+1.  **`flat`**: Biaya nominal tetap dalam Rupiah (mis. `Rp 4.000`).
+2.  **`percent`**: Biaya persentase dari nominal transaksi (mis. `2%`).
+3.  **`combined`**: Gabungan biaya tetap ditambah persentase (`flatFee + percentFee`).
+4.  **`higher`**: Mengambil nilai yang paling besar antara biaya tetap atau biaya persentase (`max(flatFee, percentFee)`).
+
+Selain biaya utama, terdapat persentase **Pajak / PPN (`taxPercent`, default 11%)** yang dihitung dari nilai `fee`. Total tagihan yang dibayarkan peserta (`grossAmount`) adalah:
+
+```text
+grossAmount = amount + fee + tax
+```
+
+<Callout type="warn">
+  Perubahan pada skema biaya atau status metode pembayaran **hanya berlaku untuk transaksi baru** dan tidak mengubah rincian biaya pada transaksi yang sudah tercatat sebelumnya.
+</Callout>
+
+---
+
+## 3. Mengelola Metode Pembayaran
+
+### A. Mengaktifkan / Menonaktifkan Saluran (*Toggle*)
+Gunakan sakelar (*switch*) di kolom **Status** pada tabel untuk mengaktifkan atau menonaktifkan saluran pembayaran secara langsung. Saluran yang nonaktif tidak akan ditampilkan sebagai pilihan pembayaran bagi peserta.
+
+### B. Menambah Metode Pembayaran Baru
+<Steps>
+  <Step>
+    ### Klik Tombol "Tambah Metode"
+    Buka dialog penambahan metode pembayaran dari sudut kanan atas kartu tabel.
+  </Step>
+  <Step>
+    ### Isi Identitas Saluran
+    Masukkan **Nama Metode**, **Kode** (otomatis diformat menjadi huruf kecil dengan garis bawah, harus unik), **Kategori**, dan **Provider** (default: `Midtrans`).
+  </Step>
+  <Step>
+    ### Atur Biaya & Uji di Kalkulator Pratinjau
+    Masukkan **Biaya Flat (Rp)**, **Biaya Persen (%)**, dan **Pajak (%)**. Gunakan kolom **Simulasi Nominal** (default `Rp 25.000`) untuk melihat pratinjau biaya, PPN, dan total tagihan secara langsung sebelum menyimpan.
+  </Step>
+</Steps>
+
+### C. Mengubah Informasi & Biaya Metode
+Klik baris metode pembayaran atau tekan tombol **Edit** untuk membuka dialog pembaruan. Anda dapat mengubah nama, kode, kategori, provider, status aktif, serta parameter biaya lengkap dengan kalkulator pratinjau.
+
+### D. Menghapus Metode Pembayaran
+Klik ikon **Tempat Sampah (*Delete*)** pada baris metode yang ingin dihapus dan konfirmasi pada dialog.
+
+<Callout type="warn">
+  **Proteksi Riwayat Transaksi**: Metode pembayaran yang **sudah memiliki riwayat transaksi** di database tidak dapat dihapus. Jika saluran tersebut tidak lagi digunakan, nonaktifkan saja menggunakan tombol *toggle* pada kolom Status.
+</Callout>
