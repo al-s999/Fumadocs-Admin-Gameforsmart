@@ -1,41 +1,77 @@
 ---
-title: Rekonsiliasi Mutasi
-description: Panduan staf keuangan dalam mencocokkan mutasi kas rekening Xendit dengan data registrasi turnamen sistem.
+title: Rekonsiliasi Billing
+description: Panduan investigasi transaksi tertunda atau gagal, sinkronisasi status langsung ke Midtrans CoreApi (Sync Gateway), rekonsiliasi manual, dan ekspor CSV.
 ---
 
-# Rekonsiliasi Mutasi
+# Rekonsiliasi Billing
 
-Halaman **Rekonsiliasi** (`/billing/reconciliation`) dirancang khusus untuk staf admin keuangan guna memverifikasi kesesuaian antara penerimaan dana nyata pada rekening Xendit dengan pencatatan transaksi di database GameForSmart.
-
----
-
-## 1. Fungsi & Tujuan Rekonsiliasi
-
-Proses rekonsiliasi berkala (harian atau mingguan) bertujuan untuk:
-1.  **Mencegah Selisih Kas**: Memastikan setiap rupiah yang ditransfer peserta tercatat rapi pada laporan turnamen terkait.
-2.  **Menghitung Potongan Biaya Transaksi (*Gateway Fee*)**: Memantau biaya administrasi per transaksi yang dipotong oleh penyedia jasa pembayaran.
-3.  **Verifikasi Pengembalian Dana (*Refund*)**: Meninjau riwayat dana turnamen yang dikembalikan apabila sebuah acara perlombaan dibatalkan atau mengalami perubahan jadwal besar.
+Halaman **Rekonsiliasi Billing** (`/billing/reconciliation`) digunakan oleh tim keuangan (`super_admin`, `owner`, `admin_billing`) untuk menangani transaksi yang tersangkut atau belum terselesaikan—yakni transaksi dengan status `PENDING`, `FAILED`, atau `EXPIRED`.
 
 ---
 
-## 2. Alur Pelaksanaan Rekonsiliasi Harian
+## 1. Ringkasan Panel & Filter
+
+Di bagian atas halaman tersedia tiga kartu status utama:
+1.  **Total Tertunda (*Pending*)**: Total nominal dana (IDR) dari seluruh transaksi yang masih berstatus `PENDING`.
+2.  **Butuh Penyelarasan**: Jumlah total transaksi berstatus `PENDING`, `FAILED`, atau `EXPIRED` yang terdaftar di panel rekonsiliasi.
+3.  **Integrasi Webhook**: Indikator status verifikasi *callback token* webhook Midtrans.
+
+Anda dapat mencari transaksi berdasarkan **ID Transaksi**, **Nama Pelanggan**, **Email**, **Kompetisi**, atau **Midtrans Order ID**, serta menyaring status (`ALL`, `PENDING`, `FAILED`, `EXPIRED`). Tersedia juga tombol **Muat Ulang** dan **Ekspor CSV** untuk mengunduh daftar transaksi tertunda ke berkas `billing_reconciliation_YYYY-MM-DD.csv`.
+
+---
+
+## 2. Membaca Informasi Penolakan Webhook
+
+Untuk transaksi berstatus `PENDING`, sistem secara otomatis memeriksa tabel `payment_idempotency`. Jika webhook dari gateway sempat ditolak (misalnya karena ketidaksesuaian nominal atau payload tidak valid), pesan alasan penolakan akan ditampilkan langsung di bawah lencana status (`Webhook: ...`) untuk memudahkan investigasi.
+
+Selain itu, jika transaksi memiliki `midtransOrderId`, tersedia tautan eksternal langsung menuju halaman transaksi terkait di **Midtrans Dashboard**.
+
+---
+
+## 3. Dua Metode Penyelesaian Transaksi
+
+### A. Sync Gateway (Otomatis via Midtrans CoreApi)
+
+Gunakan tombol **Sync Gateway** terlebih dahulu untuk menarik status aktual langsung dari server Midtrans:
 
 <Steps>
   <Step>
-    ### Pilih Periode Tanggal Laporan
-    Tentukan rentang tanggal penarikan mutasi (misalnya: tanggal 1 hingga 30 bulan berjalan).
+    ### Klik "Sync Gateway" pada Baris Transaksi
+    Sistem memanggil API status Midtrans (`CoreApi.transaction.status`) menggunakan `midtrans_order_id` transaksi terkait.
   </Step>
-
   <Step>
-    ### Periksa Status Selisih (*Discrepancy Check*)
-    Sistem akan secara otomatis membandingkan data invoice berstatus `PAID` dengan data penarikan mutasi dari Xendit:
-    *   **Status Sesuai (Matched - Hijau)**: Tidak ada selisih nilai nominal.
-    *   **Status Selisih (Discrepancy - Merah)**: Terjadi ketidaksesuaian nilai nominal atau transaksi ganda yang memerlukan pengecekan manual.
-  </Step>
-
-  <Step>
-    ### Ekspor Laporan (*Export to Excel/CSV*)
-    Klik tombol **Ekspor Laporan Finansial** untuk mengunduh rekapitulasi data dalam format berkas Excel atau CSV untuk diserahkan ke bagian akuntansi instansi.
+    ### Pemetaan Status Otomatis
+    *   Jika status Midtrans `settlement` atau `capture` (*fraud_status* = `accept`): Transaksi diubah menjadi `PAID`, peserta kompetisi ditandai lunas (`is_paid = true`), metode pembayaran & `gross_amount` diselaraskan, dan dicatat ke `payment_idempotency` serta **Audit Log** (`PAYMENT_SYNCED`).
+    *   Jika status Midtrans `expire`: Transaksi diubah menjadi `EXPIRED` (Audit Log: `PAYMENT_SYNCED_EXPIRED`).
+    *   Jika status Midtrans `deny`, `cancel`, atau `failure`: Transaksi diubah menjadi `FAILED` (Audit Log: `PAYMENT_SYNCED_FAILED`).
+    *   Jika masih `pending` di Midtrans: Tidak ada perubahan yang dilakukan dan sistem menampilkan notifikasi bahwa pembayaran memang belum diselesaikan pengguna.
   </Step>
 </Steps>
 
+<Callout type="warn">
+  **Arsip Legacy Xendit**: Transaksi lama yang hanya memiliki `xendit_invoice_id` tanpa `midtrans_order_id` tidak dapat disinkronkan melalui tombol **Sync Gateway** Midtrans. Gunakan prosedur **Rekonsiliasi Manual** di bawah ini.
+</Callout>
+
+---
+
+### B. Rekonsiliasi Manual (*Manual Override*)
+
+Jika sinkronisasi otomatis tidak memungkinkan atau admin perlu menetapkan status secara langsung setelah memverifikasi bukti transfer:
+
+<Steps>
+  <Step>
+    ### Klik Tombol "Selesaikan"
+    Dialog **Selesaikan Pembayaran Manual** akan terbuka dengan ringkasan ID transaksi, pelanggan, kompetisi, dan nominal.
+  </Step>
+  <Step>
+    ### Pilih Status Penyelesaian Baru
+    Tentukan status akhir transaksi:
+    *   `PAID` — Lunas dan memberikan akses ke kompetisi (`is_paid = true` pada `competition_participants` diperbarui terlebih dahulu sebelum status transaksi diubah).
+    *   `EXPIRED` — Menandai tagihan kedaluwarsa.
+    *   `FAILED` — Menandai pembayaran gagal.
+  </Step>
+  <Step>
+    ### Isi Catatan / Alasan Rekonsiliasi (Wajib)
+    Masukkan justifikasi tindakan (misalnya nomor tiket bantuan atau referensi bukti transfer). Setiap rekonsiliasi manual akan dicatat permanen ke `payment_idempotency` dan **Audit Log** (`MANUAL_RECONCILE_PAID`, `MANUAL_RECONCILE_EXPIRED`, atau `MANUAL_RECONCILE_FAILED`).
+  </Step>
+</Steps>

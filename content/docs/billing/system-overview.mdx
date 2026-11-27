@@ -1,0 +1,177 @@
+---
+title: Arsitektur & Alur Sistem Billing
+description: Penjelasan menyeluruh cara kerja sistem billing untuk pengguna (alur pembayaran kompetisi) serta dokumentasi teknis lintas-proyek untuk penerus/developer.
+---
+
+# Arsitektur & Alur Sistem Billing
+
+Halaman ini menjelaskan keseluruhan cara kerja sistem **Billing & Pembayaran** di GameForSmart—mulai dari pengalaman pengguna saat mendaftar kompetisi hingga arsitektur teknis di balik layar antara **`GameForSmartLandingPage`** dan **`admin_dashboard`**.
+
+<Callout type="info">
+  **Cakupan Dokumen**: Panduan ini ditujukan untuk dua kebutuhan sekaligus:
+  1. **Operasional & User Flow**: Memahami bagaimana peserta melakukan pembayaran hingga status pendaftaran terkonfirmasi lunas.
+  2. **Handover Teknis (Penerus Proyek)**: Memahami pembagian kode antar-repositori, alur API, struktur database, konfigurasi *environment*, serta mekanisme keamanan transaksi.
+</Callout>
+
+---
+
+## 1. Gambaran Umum Lintas Proyek
+
+Sistem pembayaran GameForSmart tidak berdiri di satu repositori saja, melainkan terbagi menjadi dua aplikasi Next.js yang saling terhubung melalui **Proxy API** dan berbagi satu database **Supabase**, dengan **Midtrans** sebagai *payment gateway* utama:
+
+| Komponen | Lokasi Proyek | Peran Utama |
+| :--- | :--- | :--- |
+| **Frontend User & Proxy** | `GameForSmartLandingPage` | Menampilkan halaman checkout, memuat `snap.js` Midtrans, meneruskan *request* API pembayaran ke server admin, dan menampilkan halaman hasil pembayaran. |
+| **Backend Payment & Admin Panel** | `admin_dashboard` | Menghitung nominal & biaya di sisi server (*server-side*), membuat transaksi Snap, menerima *webhook* Midtrans, memverifikasi status, serta menyediakan dashboard admin billing. |
+| **Payment Gateway** | **Midtrans** (Snap & CoreApi) | Memproses pembayaran peserta (QRIS, VA, E-Wallet, Retail, Kartu, Direct Debit). Data lama sebelum migrasi tersimpan sebagai arsip **Xendit**. |
+| **Database** | **Supabase (PostgreSQL)** | Menyimpan data transaksi, peserta kompetisi, metode pembayaran, skema biaya, dan kunci idempotensi webhook. |
+
+---
+
+## 2. Alur Pembayaran untuk User (*End-to-End*)
+
+Berikut adalah perjalanan lengkap peserta dari mulai memilih metode pembayaran hingga terdaftar resmi di kompetisi:
+
+```text
+[1. User di Landing Page]
+   │ Pilih metode pembayaran & klik Bayar (useRegistration.ts)
+   ▼
+[2. Proxy Landing Page: POST /api/payment/create-invoice]
+   │ Teruskan Authorization / Cookie ke Admin Server (timeout 10 detik)
+   ▼
+[3. Backend Admin: POST /api/payment/create-invoice]
+   │ • Rate limit (5 req / 60 detik per IP) & cek login user
+   │ • Validasi kepemilikan peserta & status belum lunas
+   │ • Hitung biaya pendaftaran + fee + pajak di server
+   │ • Batalkan transaksi PENDING lama (jika ada) -> buat Snap Token Midtrans
+   │ • Simpan transaksi baru (status: PENDING) ke tabel `transactions`
+   ▼
+[4. Browser User: window.snap.pay(token)]
+   │ User menyelesaikan pembayaran pada popup Midtrans Snap
+   │
+   ├──► [5A. Asinkron: Midtrans -> POST /api/payment/webhook (Admin)]
+   │       • Verifikasi SHA512 signature_key & kunci `payment_idempotency`
+   │       • Validasi format order_id, nominal, dan state (harus PENDING)
+   │       • Update `competition_participants.is_paid = true`
+   │       • Update `transactions.status = PAID` & catat Audit Log
+   │
+   └──► [5B. Sinkron: Redirect ke /payment/success?order_id=...]
+           • Landing Page memanggil GET /api/payment/status
+           • Membaca status asli dari tabel `transactions` (bukan sekadar parameter URL)
+```
+
+<Steps>
+  <Step>
+    ### Pemilihan Metode Pembayaran (`CheckoutView`)
+    Peserta memilih saluran pembayaran yang aktif (dikelompokkan menjadi `QR`, `EWALLET`, `VA`, `DIRECT_DEBIT`, `RETAIL`, dan `CARD`). UI menampilkan estimasi rincian biaya pendaftaran, biaya layanan, dan pajak.
+  </Step>
+  <Step>
+    ### Pembuatan Sesi Pembayaran (*Snap Token*)
+    Hook `useRegistration.ts` memuat skrip `snap.js` Midtrans (`loadSnapScript()`), lalu mengirim permintaan ke `/api/payment/create-invoice` di Landing Page yang mem-proxy permintaan tersebut ke server `admin_dashboard`. Server admin menghitung total tagihan secara mandiri dari database dan mengembalikan `token` Snap beserta `orderId` (`gameforsmart-{pesertaId}-{timestamp}`).
+  </Step>
+  <Step>
+    ### Pembayaran & Konfirmasi Otomatis (*Webhook*)
+    Setelah peserta membayar melalui popup Snap, Midtrans mengirimkan notifikasi ke `/api/payment/webhook` di `admin_dashboard`. Webhook inilah yang menjadi penentu utama perubahan status peserta (`is_paid = true`) dan transaksi (`PAID`).
+  </Step>
+  <Step>
+    ### Verifikasi Halaman Hasil (`/payment/success`)
+    Ketika peserta diarahkan kembali ke `/payment/success?order_id=...`, halaman tersebut memanggil `/api/payment/status` untuk membaca status transaksi yang sebenarnya di database (`PAID`, `PENDING`, `EXPIRED`, `FAILED`, atau `NOT_FOUND`).
+  </Step>
+</Steps>
+
+---
+
+## 3. Dokumentasi Teknis untuk Penerus Proyek
+
+<Tabs items={['Peta File & Endpoint', 'Database & Skema Biaya', 'Keamanan & Idempotency', 'Environment & Catatan WIP']}>
+  <Tab value="Peta File & Endpoint">
+    ### A. Proyek `GameForSmartLandingPage`
+    *   `src/components/features/auth/registration/components/CheckoutView.tsx` — UI pemilihan metode pembayaran dan ringkasan tagihan.
+    *   `src/components/features/auth/registration/hooks/useRegistration.ts` — Orkestrasi `handlePayWithSnap`, `handleConfirmPayment`, caching `snapToken`, dan callback `window.snap.pay`.
+    *   `src/lib/midtrans.ts` — Loader dinamis `snap.js` (otomatis reload jika `NEXT_PUBLIC_MIDTRANS_CLIENT_KEY` berubah).
+    *   `src/app/api/payment/create-invoice/route.ts` — Proxy `POST` ke `${ADMIN_URL}/api/payment/create-invoice` (timeout 10s).
+    *   `src/app/api/payment/status/route.ts` — Proxy `GET` ke `${ADMIN_URL}/api/payment/status?order_id=...` (timeout 10s).
+    *   `src/app/payment/success/payment-success-page.tsx` — Halaman hasil pembayaran yang memverifikasi status ke DB.
+
+    ### B. Proyek `admin_dashboard`
+    *   `app/api/payment/create-invoice/route.ts` — Endpoint inti pembuatan transaksi Midtrans Snap & insert record `PENDING`.
+    *   `app/api/payment/webhook/route.ts` — Handler notifikasi Midtrans (signature check, idempotency, state machine, update `is_paid` & `transactions`).
+    *   `app/api/payment/status/route.ts` — Endpoint cek status minimal transaksi berdasarkan `midtrans_order_id` & kepemilikan user.
+    *   `lib/services/transaction-service.ts` — Pengambilan data transaksi + *auto-heal* kolom `environment`.
+    *   `lib/services/payment-method-service.ts` & `app/(dashboard)/billing/payment-methods/actions.ts` — CRUD metode pembayaran & skema biaya.
+    *   `lib/services/billing-reconciliation-service.ts` — `fetchUnreconciledData`, `syncTransactionWithGateway` (CoreApi), dan `manualReconcileTransaction`.
+  </Tab>
+
+  <Tab value="Database & Skema Biaya">
+    ### Tabel Database Utama
+    *   **`transactions`**: Menyimpan `user_id`, `competition_id`, `payment_method_id`, `midtrans_order_id`, `external_id`, `xendit_invoice_id` (legacy), `amount`, `gross_amount`, `fee`, `fee_tax`, `net_amount`, `fee_bearer` (`user` | `merchant`), `status` (`PENDING`, `PAID`, `EXPIRED`, `FAILED`, `CANCELLED`), `environment` (`midtrans_production`, `midtrans_sandbox`, `xendit`), dan `paid_at`.
+    *   **`competition_participants`**: Kolom `is_paid` diubah menjadi `true` saat transaksi lunas.
+    *   **`payment_methods` & `payment_fees`**: Menyimpan daftar channel aktif (`code`, `category`, `provider`, `is_active`) dan aturan biaya (`flat_fee`, `percent_fee`, `tax_percent`, `fee_mode`).
+    *   **`payment_idempotency`**: Menyimpan `event_id` (`{orderId}:{transactionStatus}:{statusCode}` untuk webhook, `sync-{orderId}` untuk CoreApi sync, `manual-{orderId|trxId}` untuk rekonsiliasi manual) agar tidak ada pemrosesan ganda.
+
+    ### Mode Penanggung Biaya (`IS_INCLUDE_MIDTRANS_FEE`)
+    *   **`IS_INCLUDE_MIDTRANS_FEE=false` (Mode Manual)**: Server menambahkan `transactionFee` dan `tax` ke `grossAmount` (`Math.ceil(registrationFee + transactionFee + tax)`). `fee_bearer` dicatat sebagai `user` jika ada biaya.
+    *   **`IS_INCLUDE_MIDTRANS_FEE=true`**: Biaya diatur langsung oleh Midtrans. Saat pembuatan transaksi, `grossAmount = registrationFee`. Ketika webhook atau `syncTransactionWithGateway` menerima `gross_amount` aktual dari Midtrans, selisihnya (`webhookGross - trx.amount`) dicatat ke `fee` dan `net_amount` diset ke `trx.amount`.
+
+    ### Pemetaan Kode Bank di Webhook
+    Pada `webhook/route.ts`, `payment_type === "bank_transfer"` bersifat generik di Midtrans, sehingga kode bank diambil dari `va_numbers[0].bank` dengan pemetaan eksplisit (`bca` → `bca_va`, `bni` → `bni_va`, `bri` → `bri_va`, `cimb` → `cimb_va`, `bsi` → `bsi_va`, `danamon` → `danamon_online`), dan `permata` / `permata_va_number` → `permata_va`.
+  </Tab>
+
+  <Tab value="Keamanan & Idempotency">
+    Sistem menerapkan beberapa lapisan pengaman pada jalur pembayaran:
+
+    1.  **Rate Limiting**: `create-invoice` membatasi maksimal **5 permintaan per 60 detik per IP** menggunakan Redis (`@/lib/rate-limit`).
+    2.  **Server-Side Derivation**: Nominal biaya pendaftaran tidak pernah diambil dari *request body*, melainkan langsung dari `competitions.registration_fee` setelah memverifikasi kepemilikan `competition_participants.user_id`.
+    3.  **Signature Verification (Webhook)**: Memvalidasi `SHA512(order_id + status_code + gross_amount + ServerKey)` secara *constant-time* (`crypto.timingSafeEqual`). `gross_amount` dipertahankan sebagai string asli dari Midtrans sebelum di-hash.
+    4.  **TOCTOU-Safe Idempotency Lock**: `webhook/route.ts` melakukan `INSERT` ke `payment_idempotency` dengan status `PROCESSING` terlebih dahulu. Jika terjadi konflik PK (`23505`):
+        *   `SUCCESS` → langsung kembalikan *cached response*.
+        *   `PROCESSING` → kembalikan HTTP `202`.
+        *   `FAILED` → hapus lock lama dan izinkan *retry*.
+    5.  **State Machine & Rollback**: Hanya transaksi berstatus `PENDING` yang diizinkan berubah status oleh webhook. Jika update `transactions` gagal setelah `competition_participants.is_paid` sempat diubah menjadi `true`, webhook melakukan *best-effort rollback* ke `is_paid = false` dan menghapus lock idempotensi sambil mengembalikan HTTP `500` agar Midtrans melakukan *retry*.
+  </Tab>
+
+  <Tab value="Environment & Catatan WIP">
+    ### Environment Variables Penting
+    *   **`admin_dashboard`**:
+        *   `MIDTRANS_IS_PRODUCTION` (`"true"` / `"false"`)
+        *   `MIDTRANS_SERVER_KEY` & `MIDTRANS_CLIENT_KEY`
+        *   `MIDTRANS_WEBHOOK_OVERRIDE_URL` — Mengirim header `X-Override-Notification` ke Midtrans agar notifikasi mengarah ke webhook proyek ini tanpa mengubah setting global dashboard Midtrans.
+        *   `IS_INCLUDE_MIDTRANS_FEE` (`"true"` / `"false"`)
+    *   **`GameForSmartLandingPage`**:
+        *   `NEXT_PUBLIC_MIDTRANS_IS_PRODUCTION` (`"true"` / `"false"`)
+        *   `NEXT_PUBLIC_MIDTRANS_CLIENT_KEY`
+        *   `NEXT_PUBLIC_IS_INCLUDE_MIDTRANS_FEE` (`"true"` / `"false"`)
+        *   URL admin server untuk proxy (`getAdminUrl()` di `@/lib/url-helper`).
+
+    ### Catatan Status Modul & Legacy
+    *   **Arsip Legacy Xendit**: Transaksi lama dengan `xendit_invoice_id` (tanpa `midtrans_order_id`) tetap tampil di Dashboard dan Transaksi dengan environment `xendit`, tetapi **tidak bisa** disinkronkan lewat tombol *Sync Gateway* Midtrans—harus diselesaikan melalui **Rekonsiliasi Manual**.
+    *   **Modul Subscriptions (`/subscriptions`)**: Skema SQL tabel `subscriptions` dan `invoices` sudah tersedia di `sql/support-billing-schema.sql` pada `admin_dashboard`, namun `app/(dashboard)/subscriptions/actions.ts` saat ini **masih menggunakan data dummy** dan belum terhubung ke Midtrans.
+  </Tab>
+</Tabs>
+
+---
+
+## 4. Tautan Operasional Terkait
+
+<Cards>
+  <Card
+    title="Dashboard Billing"
+    description="Ringkasan pendapatan kotor, pendapatan bersih, biaya, dan rasio keberhasilan pembayaran."
+    href="/docs/billing"
+  />
+  <Card
+    title="Daftar Transaksi"
+    description="Cara melacak riwayat transaksi, filter environment, dan melihat detail biaya."
+    href="/docs/billing/transactions"
+  />
+  <Card
+    title="Metode Pembayaran"
+    description="Pengaturan channel pembayaran aktif, skema biaya flat/persen, dan PPN."
+    href="/docs/billing/payment-methods"
+  />
+  <Card
+    title="Rekonsiliasi Billing"
+    description="Penanganan transaksi tertunda via Sync Gateway Midtrans atau Rekonsiliasi Manual."
+    href="/docs/billing/reconciliation"
+  />
+</Cards>

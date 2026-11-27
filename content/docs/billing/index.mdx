@@ -1,54 +1,85 @@
 ---
 title: Dashboard Billing
-description: Memantau ringkasan pendapatan tiket pendaftaran turnamen, grafik transaksi harian, dan rasio penyelesaian pembayaran via Xendit.
+description: Memantau ringkasan pendapatan kotor dan bersih, biaya transaksi, rasio keberhasilan pembayaran, grafik tren pendapatan, dan transaksi terbaru via Midtrans.
 ---
 
 # Dashboard Billing
 
-Halaman **Dashboard Billing** (`/billing/dashboard`) adalah pusat monitoring arus kas masuk dari biaya pendaftaran turnamen dan transaksi berbayar di platform GameForSmart.
+Halaman **Dashboard Billing** (`/billing/dashboard`) adalah pusat pemantauan arus kas dan performa pembayaran di platform GameForSmart, yang terintegrasi dengan gateway **Midtrans** serta mendukung arsip data **Legacy (Xendit)**.
 
 ---
 
-## 1. Kartu Ringkasan Finansial
+## 1. Filter Environment & Navigasi Cepat
 
-Di baris teratas tersaji 4 kartu metrik keuangan:
-*   **Total Pendapatan Bulan Ini**: Akumulasi dana masuk dari transaksi tiket turnamen yang telah terkonfirmasi lunas.
-*   **Transaksi Berhasil (*Paid*)**: Jumlah transaksi yang berhasil diverifikasi pembayarannya oleh gerbang pembayaran Xendit.
-*   **Menunggu Pembayaran (*Pending*)**: Jumlah transaksi yang invoice-nya telah terbit namun belum ditransfer oleh peserta.
-*   **Kedaluwarsa (*Expired*)**: Tagihan yang batas waktu pembayarannya terlewati sehingga hangus secara otomatis.
+Di bagian atas halaman tersedia kontrol dan pintasan utama:
 
----
-
-## 2. Grafik Tren Penerimaan Kas
-
-Grafik transaksi memperlihatkan volume transaksi sukses harian:
-*   Melihat lonjakan transaksi saat pendaftaran turnamen besar sekolah dibuka.
-*   Membantu tim keuangan memproyeksikan arus kas dan menyiapkan anggaran hadiah turnamen.
+*   **Filter Environment**: Menyaring seluruh metrik, grafik, dan tabel berdasarkan lingkungan transaksi:
+    *   `Production` (`midtrans_production`) — *default*, menampilkan transaksi produksi yang valid agar tidak tercampur data pengujian.
+    *   `Sandbox` (`midtrans_sandbox`) — menampilkan transaksi pengujian.
+    *   `Legacy / Arsip` (`xendit`) — menampilkan data histori sebelum migrasi ke Midtrans.
+    *   `Semua Environment` (`ALL`) — menggabungkan seluruh data.
+*   **Tombol Refresh**: Memuat ulang data transaksi terbaru dari server.
+*   **Kartu Navigasi Cepat**: Tautan langsung menuju halaman **Transaksi** (`/billing/transactions`), **Metode Pembayaran** (`/billing/payment-methods`), dan **Rekonsiliasi** (`/billing/reconciliation`).
 
 ---
 
-## 3. Navigasi Fitur Billing
+## 2. Kartu Ringkasan Finansial
+
+Empat kartu metrik utama merangkum performa pembayaran pada *environment* yang dipilih:
+
+1.  **Pendapatan Kotor (*Gross Revenue*)**: Akumulasi `grossAmount` dari seluruh transaksi berstatus `PAID`, disertai jumlah total transaksi yang telah lunas.
+2.  **Pendapatan Bersih (*Net Revenue*)**: Akumulasi `netAmount` dari transaksi berstatus `PAID` setelah dikurangi biaya layanan dan pajak.
+3.  **Total Biaya & Pajak (*Fees & Taxes*)**: Total potongan biaya transaksi (`fee`) dan pajak (`feeTax`) dari seluruh transaksi `PAID`.
+4.  **Rasio Keberhasilan (*Success Rate*)**: Persentase transaksi `PAID` dibandingkan seluruh transaksi pada *environment* terpilih, lengkap dengan rincian jumlah transaksi `pending` dan `gagal` (`FAILED` / `EXPIRED`).
+
+---
+
+## 3. Grafik Analitik Keuangan
+
+*   **Grafik Tren Pendapatan (*Revenue Trend*)**: Grafik area (*Area Chart*) yang membandingkan tren harian **Pendapatan Kotor (*Gross*)** dan **Pendapatan Bersih (*Net*)** dari transaksi `PAID`, lengkap dengan *tooltip* detail tanggal, nominal, dan jumlah transaksi lunas.
+*   **Distribusi Metode Pembayaran (*Payment Method Distribution*)**: Diagram donat (*Pie Chart*) yang menampilkan proporsi jumlah transaksi `PAID` serta total nominal kotor untuk setiap metode pembayaran (seperti QRIS, Virtual Account, E-Wallet, dan lainnya).
+
+---
+
+## 4. Tabel Transaksi Terbaru
+
+Menampilkan **6 transaksi terbaru** sesuai *environment* yang dipilih dengan kolom:
+*   **Pelanggan** (nama lengkap dan email)
+*   **Kompetisi**
+*   **Metode** pembayaran
+*   **Nominal Kotor** (`grossAmount`)
+*   **Biaya** (`fee + feeTax`)
+*   **Status** (`PAID`, `PENDING`, `FAILED`, `EXPIRED`)
+*   **Tanggal** transaksi
+
+---
+
+## 5. Navigasi Modul Billing
 
 <Cards>
   <Card 
-    title="Transaksi Invoice Xendit" 
-    description="Memeriksa detail invoice pembayaran, status transfer, dan sinkronisasi status."
+    title="Arsitektur & Alur Sistem Billing" 
+    description="Penjelasan menyeluruh alur pembayaran user dan arsitektur teknis lintas-proyek untuk penerus."
+    href="/docs/billing/system-overview"
+  />
+  <Card 
+    title="Daftar Transaksi" 
+    description="Memantau riwayat lengkap transaksi, filter periode & environment, serta melihat detail biaya."
     href="/docs/billing/transactions"
   />
   <Card 
     title="Metode Pembayaran" 
-    description="Melihat saluran pembayaran aktif: Virtual Account Bank, E-Wallet, dan QRIS."
+    description="Mengelola channel pembayaran aktif, skema biaya (flat/persen/PPN), dan kalkulator simulasi."
     href="/docs/billing/payment-methods"
   />
   <Card 
-    title="Rekonsiliasi Mutasi" 
-    description="Pencocokan arus penerimaan bank dengan catatan transaksi sistem GameForSmart."
+    title="Rekonsiliasi Billing" 
+    description="Investigasi transaksi tertunda, Sync Gateway ke Midtrans, dan rekonsiliasi manual."
     href="/docs/billing/reconciliation"
   />
   <Card 
     title="Paket Langganan (WIP)" 
-    description="Informasi mengenai modul langganan berkala yang saat ini sedang dalam pengembangan."
+    description="Informasi mengenai modul langganan berkala yang saat ini sedang dalam tahap pengembangan."
     href="/docs/billing/subscriptions"
   />
 </Cards>
-
